@@ -79,7 +79,8 @@
     @media screen and (prefers-reduced-motion:reduce){
       .home-page .home-page-teaser,.home-page .home-page-teaser .home-page-teaser-content,.home-page-teaser-content,.home-page-teaser-image{animation-delay:0s!important;animation-duration:.1ms!important;transition-delay:0s!important;transition-duration:.1ms!important}
     }
-    .top-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;left:0;padding:1.15rem 1.5rem;position:fixed;top:0;z-index:20}
+    .top-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;left:0;padding:1.15rem 1.5rem;position:fixed;top:0;transition:opacity .25s ease,transform .25s ease;z-index:20}
+    .top-nav.nav-hidden{opacity:0;pointer-events:none;transform:translateY(-120%)}
     .top-nav a{color:#000;font-size:1.2rem;font-weight:500;text-decoration:none}
     .top-nav a:hover{text-decoration:underline}
     .page-block,.who-block{height:100svh;margin:0 auto;overflow:hidden;padding:5.5rem 1.5rem 2rem}
@@ -115,7 +116,7 @@
     <a href="#home">Home</a>
     <a href="#who">Who am I</a>
     <a href="#contact">Contact</a>
-    <a href="#exhibitions">Exhibitions</a>
+    <!-- <a href="#exhibitions">Exhibitions</a> -->
   </nav>
   <main class="page-transition">
     <section id="home" class="home-page has-layering-effect" aria-labelledby="homepage-heading">
@@ -224,7 +225,7 @@
     </section>
     <section id="who" class="who-block"></section>
     <section id="contact" class="page-block"></section>
-    <section id="exhibitions" class="page-block"></section>
+    <!-- <section id="exhibitions" class="page-block"></section> -->
   </main>
   <script>
     const SITE_CONTENT = {
@@ -403,10 +404,13 @@
       if (social) rows.push('<a href="' + esc(social) + '">' + esc(contact.socialLabel || social) + "</a>");
       document.querySelector("#contact").innerHTML = '<h2 class="heading-2">Contact</h2>' +
         (rows.length ? '<div class="contact-list">' + rows.join("") + "</div>" : "<p>Contact details will be added here.</p>");
-      const album = info.exhibitions.map((item) =>
-        '<button type="button" class="album-item"><img src="' + esc(safeSrc(item.image)) + '" alt="' + esc(item.title) + '"><span class="album-info"><strong>' + esc(item.title) + "</strong>" + esc(item.text) + "</span></button>"
-      ).join("");
-      document.querySelector("#exhibitions").innerHTML = '<h2 class="heading-2">Exhibitions</h2><div class="album">' + album + "</div>";
+      const exhibitions = document.querySelector("#exhibitions");
+      if (exhibitions) {
+        const album = info.exhibitions.map((item) =>
+          '<button type="button" class="album-item"><img src="' + esc(safeSrc(item.image)) + '" alt="' + esc(item.title) + '"><span class="album-info"><strong>' + esc(item.title) + "</strong>" + esc(item.text) + "</span></button>"
+        ).join("");
+        exhibitions.innerHTML = '<h2 class="heading-2">Exhibitions</h2><div class="album">' + album + "</div>";
+      }
       document.querySelectorAll(".album-item").forEach((item) => {
         item.addEventListener("click", () => item.classList.toggle("open"));
       });
@@ -420,8 +424,13 @@
     const hints = [...document.querySelectorAll(".scroll-for-more, .scroll-for-more-mobile")];
     const overlays = [document.querySelector(".homepage-teasers"), document.querySelector(".home-page-teaser-images")];
 
+    let lastScrollY = window.scrollY;
     function layout() {
       const y = window.scrollY;
+      const nav = document.querySelector(".top-nav");
+      nav.classList.toggle("nav-hidden", y > 8 && y > lastScrollY);
+      if (y <= 8 || y < lastScrollY) nav.classList.remove("nav-hidden");
+      lastScrollY = y;
       const whoTop = document.querySelector("#who").getBoundingClientRect().top;
       const past = whoTop < window.innerHeight * 0.72;
       overlays.forEach((el) => { el.style.visibility = past ? "hidden" : ""; });
@@ -472,6 +481,13 @@
       window.scrollTo({ top: next.offsetTop, behavior: "smooth" });
       window.setTimeout(() => { stepping = false; }, 700);
     }
+    window.addEventListener("keydown", (event) => {
+      if (event.target.matches("input, textarea, select, [contenteditable=\"true\"]")) return;
+      if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        step(event.key === "ArrowDown" ? 1 : -1);
+      }
+    });
     window.addEventListener("wheel", (event) => {
       event.preventDefault();
       if (Math.abs(event.deltaY) < 10) return;

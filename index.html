@@ -31,7 +31,7 @@
     .home-page.has-layering-effect .home-page-teaser{height:100vh;height:100lvh;left:0;pointer-events:none;position:fixed;top:0;width:100vw}
     .home-page.has-layering-effect .home-page-teaser .home-page-teaser-content .content-wrapper{padding-top:0}
     .home-page .home-page-teaser{padding-left:0;padding-right:0;transition:padding-top .42s ease-in-out}
-    .home-page .home-page-teaser:not(:first-child){display:none}
+    .home-page .home-page-teaser:not(:first-child){display:block}
     .home-page .home-page-teaser.active{pointer-events:all}
     .home-page .home-page-teaser.active .home-page-teaser-content .content-wrapper{opacity:1}
     .home-page .home-page-teaser .home-page-teaser-content{bottom:0;display:flex;flex-direction:column;height:90%;justify-content:flex-end;left:0;overflow:hidden;padding-left:24px;position:absolute;transform-origin:bottom left;transition:width .42s ease-in-out,height .42s ease-in-out;width:100%;will-change:transform}
@@ -227,14 +227,86 @@
     <section id="exhibitions" class="page-block"></section>
   </main>
   <script>
-    const DEFAULTS = [
-      { label: "", title: "Mary", text: "Paintings, miniatures, and calligraphy from the studio.", color: "#ffce01", image: "images/hero-1.JPG", alt: "Calligraphy painting with a cypress tree on an orange ground" },
-      { label: "Painting", title: "Pearl earring", text: "A small canvas on the easel, after the girl with the pearl earring.", color: "#f497af", image: "images/hero-2.JPG", alt: "Painting of a girl with a pearl earring holding an iced coffee" },
-      { label: "Calligraphy", title: "Flowers and script", text: "Raised lettering on a warm ground, with blossoms and a woven star.", color: "#dacc98", image: "images/hero-3.JPG", alt: "Calligraphy painting with flowers and a geometric star" },
-      { label: "Miniature", title: "Tomb of Cyrus", text: "Watercolour on a tiny canvas, set on a wooden easel.", color: "#a3c8d8", image: "images/avatar.JPG", alt: "Miniature watercolour of the Tomb of Cyrus on an easel" },
-      { label: "Miniature", title: "Khaju Bridge", text: "Ink and wash of the bridge, arches in blue and a row of trees.", color: "#5da14d", image: "images/IMG_6319.JPG", alt: "Miniature painting of Khaju Bridge" },
-      { label: "Miniature", title: "Garden pavilion", text: "A green dome between cypress trees, painted small enough to hold.", color: "#e4b07a", image: "images/IMG_6320.JPG", alt: "Miniature painting of a garden pavilion with a green dome" }
-    ];
+    const SITE_CONTENT = {
+      "works": [
+        {
+          "label": "",
+          "title": "Mary",
+          "text": "Paintings, miniatures, and calligraphy from the studio.",
+          "color": "#ffce01",
+          "image": "images/hero-1.JPG",
+          "alt": "Calligraphy painting with a cypress tree on an orange ground"
+        },
+        {
+          "label": "Painting",
+          "title": "Pearl earring",
+          "text": "A small canvas on the easel, after the girl with the pearl earring.",
+          "color": "#f497af",
+          "image": "images/hero-2.JPG",
+          "alt": "Painting of a girl with a pearl earring holding an iced coffee"
+        },
+        {
+          "label": "Calligraphy",
+          "title": "Flowers and script",
+          "text": "Raised lettering on a warm ground, with blossoms and a woven star.",
+          "color": "#dacc98",
+          "image": "images/hero-3.JPG",
+          "alt": "Calligraphy painting with flowers and a geometric star"
+        },
+        {
+          "label": "Miniature",
+          "title": "Tomb of Cyrus",
+          "text": "Watercolour on a tiny canvas, set on a wooden easel.",
+          "color": "#a3c8d8",
+          "image": "images/avatar.JPG",
+          "alt": "Miniature watercolour of the Tomb of Cyrus on an easel"
+        },
+        {
+          "label": "Miniature",
+          "title": "Khaju Bridge",
+          "text": "Ink and wash of the bridge, arches in blue and a row of trees.",
+          "color": "#5da14d",
+          "image": "images/IMG_6319.JPG",
+          "alt": "Miniature painting of Khaju Bridge"
+        },
+        {
+          "label": "Miniature",
+          "title": "Garden pavilion",
+          "text": "A green dome between cypress trees, painted small enough to hold.",
+          "color": "#e4b07a",
+          "image": "images/IMG_6320.JPG",
+          "alt": "Miniature painting of a garden pavilion with a green dome"
+        }
+      ],
+      "who": {
+        "portrait": "images/avatar.JPG",
+        "photo": "images/hero-1.JPG",
+        "text": "Mary paints canvases, palm-sized miniatures, and calligraphy in the studio."
+      },
+      "contact": {
+        "phone": "0449516471",
+        "email": "Maryammohammadzadehha@gmail.com",
+        "socialLabel": "Instagram",
+        "socialUrl": "www.instagram.com"
+      },
+      "exhibitions": [
+        {
+          "image": "images/hero-2.JPG",
+          "title": "Exhibition",
+          "text": "Add the place and the date."
+        },
+        {
+          "image": "images/hero-3.JPG",
+          "title": "Exhibition",
+          "text": "Add the place and the date."
+        },
+        {
+          "image": "images/IMG_6320.JPG",
+          "title": "Exhibition",
+          "text": "Add the place and the date."
+        }
+      ]
+    };
 
     function esc(value) {
       return String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -248,16 +320,6 @@
       return /^#[0-9a-fA-F]{6}$/.test(color) ? color : "#ffce01";
     }
 
-    const SITE_DEFAULT = {
-      who: { portrait: "images/avatar.JPG", photo: "images/hero-1.JPG", text: "Mary paints canvases, palm-sized miniatures, and calligraphy in the studio." },
-      contact: { phone: "", email: "", socialLabel: "", socialUrl: "" },
-      exhibitions: [
-        { image: "images/hero-2.JPG", title: "Exhibition", text: "Add the place and the date." },
-        { image: "images/hero-3.JPG", title: "Exhibition", text: "Add the place and the date." },
-        { image: "images/IMG_6320.JPG", title: "Exhibition", text: "Add the place and the date." }
-      ]
-    };
-
     function loadJson(key) {
       const raw = localStorage.getItem(key);
       if (!raw) return null;
@@ -266,16 +328,16 @@
 
     function works() {
       const saved = loadJson("mary-works");
-      return Array.isArray(saved) ? saved : DEFAULTS;
+      return Array.isArray(saved) ? saved : SITE_CONTENT.works;
     }
 
     function site() {
       const saved = loadJson("mary-site");
-      if (!saved || typeof saved !== "object") return SITE_DEFAULT;
+      if (!saved || typeof saved !== "object") return SITE_CONTENT;
       return {
-        who: { ...SITE_DEFAULT.who, ...(saved.who || {}) },
-        contact: { ...SITE_DEFAULT.contact, ...(saved.contact || {}) },
-        exhibitions: Array.isArray(saved.exhibitions) ? saved.exhibitions : SITE_DEFAULT.exhibitions
+        who: { ...SITE_CONTENT.who, ...(saved.who || {}) },
+        contact: { ...SITE_CONTENT.contact, ...(saved.contact || {}) },
+        exhibitions: Array.isArray(saved.exhibitions) ? saved.exhibitions : SITE_CONTENT.exhibitions
       };
     }
 

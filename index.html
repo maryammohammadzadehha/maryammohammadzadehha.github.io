@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mary</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500&display=swap">
+  <style>
+    *{box-sizing:border-box}
+    figure,h1,h2,h3,h4,h5,h6,p,ul{margin:0}
+    ul{list-style:none;padding:0}
+    body{background-color:#f8f2d8;color:#000;font-family:Vazirmatn,Arial,sans-serif;font-size:1rem;font-weight:400;line-height:141.18%;margin:0;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    .heading-1{font-size:2.375rem;font-weight:500;left:-.12rem;letter-spacing:clamp(-.15rem,-.8vw,0px);line-height:104.55%;position:relative}
+    .heading-2{font-size:2.125rem;font-weight:500;left:-.1rem;letter-spacing:clamp(-.2rem,-.7vw,0px);line-height:106.45%;position:relative}
+    .object-fit-container{position:relative}
+    .object-fit-container img{height:100%;left:0;position:absolute;top:0;width:100%}
+    .object-fit-container.cover img{object-fit:cover}
+    .grid-container{margin-left:auto;margin-right:auto;max-width:85rem;padding-left:28px;padding-right:28px;width:100%}
+    .grid-container.extra-wide{max-width:130rem}
+    .page-transition{position:relative}
+    @keyframes revealImage{0%{clip-path:polygon(0 50%,0 50%,0 50%,0 50%)}to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+    @keyframes revealContent{0%{clip-path:polygon(66.67% 50%,66.67% 50%,66.67% 50%,66.67% 50%)}to{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}}
+    .home-page-teaser-content{animation:revealContent 1.5s cubic-bezier(.87,0,.13,1) 0s forwards;clip-path:polygon(66.67% 50%,66.67% 50%,66.67% 50%,66.67% 50%)}
+    .home-page-teaser-image{animation:revealImage 1.5s cubic-bezier(.87,0,.13,1) .35s forwards;clip-path:polygon(0 50%,0 50%,0 50%,0 50%)}
+    html{scroll-behavior:smooth}
+    .home-page{padding-right:0!important;--teaser-image-width:70%;--teaser-image-height:44vh}
+    .home-page:before{top:0;transform:translateY(-100%)}
+    .home-page:after,.home-page:before{background-color:#f8f2d8;content:"";height:calc(100lvh - 100vh);left:0;position:fixed;width:100vw}
+    .home-page:after{top:100vh}
+    .home-page .card-scroll-section{scroll-snap-align:start;scroll-snap-stop:always}
+    .home-page.has-layering-effect .home-page-teaser{height:100vh;height:100lvh;left:0;pointer-events:none;position:fixed;top:0;width:100vw}
+    .home-page.has-layering-effect .home-page-teaser .home-page-teaser-content .content-wrapper{padding-top:0}
+    .home-page .home-page-teaser{padding-left:0;padding-right:0;transition:padding-top .42s ease-in-out}
+    .home-page .home-page-teaser:not(:first-child){display:none}
+    .home-page .home-page-teaser.active{pointer-events:all}
+    .home-page .home-page-teaser.active .home-page-teaser-content .content-wrapper{opacity:1}
+    .home-page .home-page-teaser .home-page-teaser-content{bottom:0;display:flex;flex-direction:column;height:90%;justify-content:flex-end;left:0;overflow:hidden;padding-left:24px;position:absolute;transform-origin:bottom left;transition:width .42s ease-in-out,height .42s ease-in-out;width:100%;will-change:transform}
+    .home-page .home-page-teaser .home-page-teaser-content-title{hyphens:auto}
+    .home-page .home-page-teaser .home-page-teaser-content .content-wrapper{display:flex;flex-direction:column;margin-top:16px;opacity:0;padding-bottom:20px;padding-right:24px;transform-origin:bottom left;transition:opacity .42s ease-in-out;width:100%;will-change:transform}
+    .home-page .home-page-teaser .home-page-teaser-content .content-wrapper .home-page-teaser-content-label{font-weight:500;margin-bottom:2px}
+    .home-page .home-page-teaser .home-page-teaser-content .content-wrapper .home-page-teaser-content-title{margin-bottom:16px}
+    .home-page .home-page-teaser .home-page-teaser-content .content-wrapper .home-page-teaser-content-description{margin-bottom:16px;max-width:30rem}
+    .home-page .home-page-teaser-images{height:100vh;height:100lvh;left:0;pointer-events:none;position:fixed;top:0;width:100vw;z-index:5}
+    .home-page .home-page-teaser-images .home-page-teaser-image{bottom:0;height:var(--teaser-image-height);padding-left:14px;position:absolute;right:0;transition:opacity .2s;width:var(--teaser-image-width);z-index:2}
+    .home-page .home-page-teaser-images .home-page-teaser-image>*{height:100%;width:100%}
+    .scroll-for-more{bottom:32px;display:none;gap:16px;height:fit-content;left:4rem;width:100%}
+    .scroll-for-more,.scroll-for-more-mobile{opacity:0;pointer-events:none;position:absolute;transition:opacity .42s ease-in-out;z-index:2}
+    .scroll-for-more-mobile{bottom:1rem;color:#fff;right:1rem}
+    .scroll-for-more svg,.scroll-for-more-mobile svg{height:1.5rem;width:1.5rem}
+    @media screen and (min-width:450px) and (min-height:750px){
+      .home-page{--teaser-image-width:90%;--teaser-image-height:45vh}
+    }
+    @media screen and (min-width:750px) and (min-height:900px){
+      .home-page{--teaser-image-width:100%;--teaser-image-height:50vh}
+    }
+    @media only screen and (min-width:64em){
+      .heading-1{font-size:5.5rem;left:-.25rem;letter-spacing:clamp(-.5rem,-.5vw,0px)}
+      .heading-2{font-size:3.875rem;left:-.18rem;letter-spacing:clamp(-.3rem,-.3vw,0px)}
+      .home-page{--teaser-image-width:40%;--teaser-image-height:100vh}
+      .home-page.has-layering-effect .home-page-teaser .home-page-teaser-content .content-wrapper{padding-top:0}
+      .home-page .home-page-teaser{padding-left:2.125rem;padding-top:0}
+      .home-page .home-page-teaser .home-page-teaser-content{padding-left:2.125rem;width:75%}
+      .home-page .home-page-teaser .home-page-teaser-content .content-wrapper{justify-content:center;margin-top:0;padding-bottom:4.5rem;padding-right:20vw}
+      .home-page .home-page-teaser .home-page-teaser-content .content-wrapper .home-page-teaser-content-description,.home-page .home-page-teaser .home-page-teaser-content .content-wrapper .home-page-teaser-content-title{margin-bottom:28px}
+      .home-page .home-page-teaser-images .home-page-teaser-image{padding-bottom:0;padding-top:0;right:0;top:0}
+      .scroll-for-more{display:flex}
+      .scroll-for-more-mobile{display:none}
+    }
+    @media screen and (min-width:64em) and (max-width:90em){
+      .home-page .home-page-teaser-images .home-page-teaser-image{padding-top:0}
+    }
+    @media only screen and (max-width:63.9375em){
+      .home-page .home-page-teaser .home-page-teaser-content{padding-bottom:var(--teaser-image-height)}
+    }
+    @media only screen and (max-width:44.9375em){
+      .home-page .card-scroll-section{scroll-snap-stop:always}
+      .home-page .home-page-teaser-images .home-page-teaser-image{padding-top:1rem}
+    }
+    @media screen and (prefers-reduced-motion:reduce){
+      .home-page .home-page-teaser,.home-page .home-page-teaser .home-page-teaser-content,.home-page-teaser-content,.home-page-teaser-image{animation-delay:0s!important;animation-duration:.1ms!important;transition-delay:0s!important;transition-duration:.1ms!important}
+    }
+    .top-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;left:0;padding:1.15rem 1.5rem;position:fixed;top:0;z-index:20}
+    .top-nav a{color:#000;font-size:1.2rem;font-weight:500;text-decoration:none}
+    .top-nav a:hover{text-decoration:underline}
+    .page-block,.who-block{height:100svh;margin:0 auto;overflow:hidden;padding:5.5rem 1.5rem 2rem}
+    .to-top{align-items:center;background:#000;border-radius:50%;bottom:1.25rem;color:#fff;display:flex;height:3rem;justify-content:center;position:fixed;right:1.25rem;width:3rem;z-index:21}
+    .to-top svg{height:1.35rem;width:1.35rem}
+    .page-block{max-width:70rem}
+    .page-block h2,.who-copy h2{margin-bottom:1rem}
+    .who-block{align-items:center;display:grid;gap:2rem;max-width:76rem}
+    .who-photo,.who-copy{min-width:0}
+    .who-photo{display:block;height:min(62vh,calc(100svh - 9rem));object-fit:cover;width:100%}
+    .who-portrait{border-radius:50%;display:block;height:8.5rem;margin-bottom:1.25rem;object-fit:cover;width:8.5rem}
+    .who-copy p{max-width:28rem}
+    .contact-list{display:grid;gap:.7rem}
+    .contact-list a{color:#000;font-weight:500}
+    .album{display:flex;flex-wrap:wrap;gap:1.25rem}
+    .album-item{background:transparent;border:0;color:inherit;cursor:pointer;font:inherit;padding:0;text-align:left;width:9rem}
+    .album-item img{display:block;height:9rem;object-fit:cover;transition:transform .25s ease,filter .25s ease;width:9rem}
+    .album-item:hover img,.album-item.open img,.album-item:focus-visible img{filter:brightness(1.12);transform:scale(1.08)}
+    .album-info{margin-top:.45rem;max-height:0;opacity:0;overflow:hidden;transition:max-height .3s ease,opacity .3s ease}
+    .album-item:hover .album-info,.album-item.open .album-info,.album-item:focus-visible .album-info{max-height:9rem;opacity:1}
+    .album-info strong{display:block;margin-bottom:.2rem}
+    @media only screen and (min-width:64em){
+      .who-block{grid-template-columns:1.35fr .8fr}
+    }
+    @media only screen and (min-width:64em){
+      .top-nav{padding-left:2.125rem}
+    }
+  </style>
+</head>
+<body style="--background-color:#F8F2D8">
+  <a class="to-top" href="#home" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 8.4 5.7 13.7 4.3 12.3 12 4.6l7.7 7.7-1.4 1.4L13 8.4V20h-2z"/></svg></a>
+  <nav class="top-nav" aria-label="Pages">
+    <a href="#home">Home</a>
+    <a href="#who">Who am I</a>
+    <a href="#contact">Contact</a>
+    <a href="#exhibitions">Exhibitions</a>
+  </nav>
+  <main class="page-transition">
+    <section id="home" class="home-page has-layering-effect" aria-labelledby="homepage-heading">
+      <div class="card-scroll-section" style="height:100svh"></div>
+      <div class="card-scroll-section" style="height:100svh"></div>
+      <div class="card-scroll-section" style="height:100svh"></div>
+      <div class="card-scroll-section" style="height:100svh"></div>
+      <div class="card-scroll-section" style="height:100svh"></div>
+      <div class="card-scroll-section" style="height:100svh"></div>
+
+      <ul class="homepage-teasers">
+        <li class="home-page-teaser grid-container extra-wide active" style="display:block">
+          <article class="home-page-teaser-content" style="background-color:#ffce01;transform-origin:right top;transform:scale(1, 1) translate(0px, 0px)">
+            <div class="content-wrapper" style="transform-origin:right top;transform:scale(1, 1) translate(0px, 0px)">
+              <h1 id="homepage-heading" class="home-page-teaser-content-title heading-1">Mary</h1>
+              <p class="home-page-teaser-content-description">Paintings, miniatures, and calligraphy from the studio.</p>
+            </div>
+          </article>
+        </li>
+        <li class="home-page-teaser grid-container extra-wide" style="display:block">
+          <article class="home-page-teaser-content" style="background-color:#f497af;transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+            <div class="content-wrapper" style="transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+              <p class="home-page-teaser-content-label">Painting</p>
+              <h2 class="home-page-teaser-content-title heading-2">Pearl earring</h2>
+              <p class="home-page-teaser-content-description">A small canvas on the easel, after the girl with the pearl earring.</p>
+            </div>
+          </article>
+        </li>
+        <li class="home-page-teaser grid-container extra-wide" style="display:block">
+          <article class="home-page-teaser-content" style="background-color:#dacc98;transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+            <div class="content-wrapper" style="transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+              <p class="home-page-teaser-content-label">Calligraphy</p>
+              <h2 class="home-page-teaser-content-title heading-2">Flowers and script</h2>
+              <p class="home-page-teaser-content-description">Raised lettering on a warm ground, with blossoms and a woven star.</p>
+            </div>
+          </article>
+        </li>
+        <li class="home-page-teaser grid-container extra-wide" style="display:block">
+          <article class="home-page-teaser-content" style="background-color:#a3c8d8;transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+            <div class="content-wrapper" style="transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+              <p class="home-page-teaser-content-label">Miniature</p>
+              <h2 class="home-page-teaser-content-title heading-2">Tomb of Cyrus</h2>
+              <p class="home-page-teaser-content-description">Watercolour on a tiny canvas, set on a wooden easel.</p>
+            </div>
+          </article>
+        </li>
+        <li class="home-page-teaser grid-container extra-wide" style="display:block">
+          <article class="home-page-teaser-content" style="background-color:#5da14d;transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+            <div class="content-wrapper" style="transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+              <p class="home-page-teaser-content-label">Miniature</p>
+              <h2 class="home-page-teaser-content-title heading-2">Khaju Bridge</h2>
+              <p class="home-page-teaser-content-description">Ink and wash of the bridge, arches in blue and a row of trees.</p>
+            </div>
+          </article>
+        </li>
+        <li class="home-page-teaser grid-container extra-wide" style="display:block">
+          <article class="home-page-teaser-content" style="background-color:#e4b07a;transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+            <div class="content-wrapper" style="transform-origin:left bottom;transform:scale(1, 1) translate(0px, 0px)">
+              <p class="home-page-teaser-content-label">Miniature</p>
+              <h2 class="home-page-teaser-content-title heading-2">Garden pavilion</h2>
+              <p class="home-page-teaser-content-description">A green dome between cypress trees, painted small enough to hold.</p>
+            </div>
+          </article>
+        </li>
+      </ul>
+
+      <ul class="home-page-teaser-images grid-container extra-wide">
+        <div class="home-page-teaser-image" style="opacity:1">
+          <div class="focus-point-image object-fit-container cover">
+            <img src="images/hero-1.JPG" alt="Calligraphy painting with a cypress tree on an orange ground">
+          </div>
+        </div>
+        <div class="home-page-teaser-image" style="opacity:0">
+          <div class="focus-point-image object-fit-container cover">
+            <img src="images/hero-2.JPG" alt="Painting of a girl with a pearl earring holding an iced coffee">
+          </div>
+        </div>
+        <div class="home-page-teaser-image" style="opacity:0">
+          <div class="focus-point-image object-fit-container cover">
+            <img src="images/hero-3.JPG" alt="Calligraphy painting with flowers and a geometric star">
+          </div>
+        </div>
+        <div class="home-page-teaser-image" style="opacity:0">
+          <div class="focus-point-image object-fit-container cover">
+            <img src="images/avatar.JPG" alt="Miniature watercolour of the Tomb of Cyrus on an easel">
+          </div>
+        </div>
+        <div class="home-page-teaser-image" style="opacity:0">
+          <div class="focus-point-image object-fit-container cover">
+            <img src="images/IMG_6319.JPG" alt="Miniature painting of Khaju Bridge">
+          </div>
+        </div>
+        <div class="home-page-teaser-image" style="opacity:0">
+          <div class="focus-point-image object-fit-container cover">
+            <img src="images/IMG_6320.JPG" alt="Miniature painting of a garden pavilion with a green dome">
+          </div>
+        </div>
+        <div class="scroll-for-more" style="opacity:1">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M10.525 18.964v-8.24c0-.809.666-1.475 1.475-1.475s1.475.666 1.475 1.475v8.24l4.5-4.499a1.48 1.48 0 0 1 2.085 0 1.482 1.482 0 0 1 0 2.086l-7.017 7.017a1.45 1.45 0 0 1-.447.305 1.456 1.456 0 0 1-1.192 0 1.45 1.45 0 0 1-.447-.305L3.94 16.55a1.482 1.482 0 0 1 0-2.086 1.48 1.48 0 0 1 2.085 0l4.5 4.5zM12 5.11a1.476 1.476 0 1 1-.001 2.951A1.476 1.476 0 0 1 12 5.11zM12 0a1.476 1.476 0 0 1 0 2.95A1.476 1.476 0 0 1 12 0z"/></svg>
+          <p>Scroll for more</p>
+        </div>
+        <div class="scroll-for-more-mobile" style="opacity:1">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M10.525 18.964v-8.24c0-.809.666-1.475 1.475-1.475s1.475.666 1.475 1.475v8.24l4.5-4.499a1.48 1.48 0 0 1 2.085 0 1.482 1.482 0 0 1 0 2.086l-7.017 7.017a1.45 1.45 0 0 1-.447.305 1.456 1.456 0 0 1-1.192 0 1.45 1.45 0 0 1-.447-.305L3.94 16.55a1.482 1.482 0 0 1 0-2.086 1.48 1.48 0 0 1 2.085 0l4.5 4.5zM12 5.11a1.476 1.476 0 1 1-.001 2.951A1.476 1.476 0 0 1 12 5.11zM12 0a1.476 1.476 0 0 1 0 2.95A1.476 1.476 0 0 1 12 0z"/></svg>
+        </div>
+      </ul>
+    </section>
+    <section id="who" class="who-block"></section>
+    <section id="contact" class="page-block"></section>
+    <section id="exhibitions" class="page-block"></section>
+  </main>
+  <script>
+    const DEFAULTS = [
+      { label: "", title: "Mary", text: "Paintings, miniatures, and calligraphy from the studio.", color: "#ffce01", image: "images/hero-1.JPG", alt: "Calligraphy painting with a cypress tree on an orange ground" },
+      { label: "Painting", title: "Pearl earring", text: "A small canvas on the easel, after the girl with the pearl earring.", color: "#f497af", image: "images/hero-2.JPG", alt: "Painting of a girl with a pearl earring holding an iced coffee" },
+      { label: "Calligraphy", title: "Flowers and script", text: "Raised lettering on a warm ground, with blossoms and a woven star.", color: "#dacc98", image: "images/hero-3.JPG", alt: "Calligraphy painting with flowers and a geometric star" },
+      { label: "Miniature", title: "Tomb of Cyrus", text: "Watercolour on a tiny canvas, set on a wooden easel.", color: "#a3c8d8", image: "images/avatar.JPG", alt: "Miniature watercolour of the Tomb of Cyrus on an easel" },
+      { label: "Miniature", title: "Khaju Bridge", text: "Ink and wash of the bridge, arches in blue and a row of trees.", color: "#5da14d", image: "images/IMG_6319.JPG", alt: "Miniature painting of Khaju Bridge" },
+      { label: "Miniature", title: "Garden pavilion", text: "A green dome between cypress trees, painted small enough to hold.", color: "#e4b07a", image: "images/IMG_6320.JPG", alt: "Miniature painting of a garden pavilion with a green dome" }
+    ];
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+
+    function safeSrc(src) {
+      return typeof src === "string" && (src.startsWith("images/") || src.startsWith("data:image/")) ? src : "";
+    }
+
+    function safeColor(color) {
+      return /^#[0-9a-fA-F]{6}$/.test(color) ? color : "#ffce01";
+    }
+
+    const SITE_DEFAULT = {
+      who: { portrait: "images/avatar.JPG", photo: "images/hero-1.JPG", text: "Mary paints canvases, palm-sized miniatures, and calligraphy in the studio." },
+      contact: { phone: "", email: "", socialLabel: "", socialUrl: "" },
+      exhibitions: [
+        { image: "images/hero-2.JPG", title: "Exhibition", text: "Add the place and the date." },
+        { image: "images/hero-3.JPG", title: "Exhibition", text: "Add the place and the date." },
+        { image: "images/IMG_6320.JPG", title: "Exhibition", text: "Add the place and the date." }
+      ]
+    };
+
+    function loadJson(key) {
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      try { return JSON.parse(raw); } catch (e) { return null; }
+    }
+
+    function works() {
+      const saved = loadJson("mary-works");
+      return Array.isArray(saved) ? saved : DEFAULTS;
+    }
+
+    function site() {
+      const saved = loadJson("mary-site");
+      if (!saved || typeof saved !== "object") return SITE_DEFAULT;
+      return {
+        who: { ...SITE_DEFAULT.who, ...(saved.who || {}) },
+        contact: { ...SITE_DEFAULT.contact, ...(saved.contact || {}) },
+        exhibitions: Array.isArray(saved.exhibitions) ? saved.exhibitions : SITE_DEFAULT.exhibitions
+      };
+    }
+
+    function safeHttp(url) {
+      return typeof url === "string" && /^https?:\/\//i.test(url) ? url : "";
+    }
+
+    function safeMail(email) {
+      return typeof email === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : "";
+    }
+
+    function safeTel(phone) {
+      return typeof phone === "string" && /^[+0-9][0-9\s()-]{4,}$/.test(phone.trim()) ? phone.trim() : "";
+    }
+
+    function render() {
+      const list = works();
+      const home = document.querySelector(".home-page");
+      home.querySelectorAll(".card-scroll-section").forEach((node) => node.remove());
+      const teasers = home.querySelector(".homepage-teasers");
+      const imageList = home.querySelector(".home-page-teaser-images");
+      const hints = imageList.querySelector(".scroll-for-more").parentElement
+        ? [imageList.querySelector(".scroll-for-more"), imageList.querySelector(".scroll-for-more-mobile")]
+        : [];
+      list.forEach(() => {
+        const spacer = document.createElement("div");
+        spacer.className = "card-scroll-section";
+        spacer.style.height = "100svh";
+        teasers.before(spacer);
+      });
+      teasers.innerHTML = list.map((item, i) => {
+        const origin = i === 0 ? "right top" : "left bottom";
+        const heading = i === 0 ? "h1" : "h2";
+        const headingClass = i === 0 ? "heading-1" : "heading-2";
+        const id = i === 0 ? ' id="homepage-heading"' : "";
+        const label = item.label ? '<p class="home-page-teaser-content-label">' + esc(item.label) + "</p>" : "";
+        return '<li class="home-page-teaser grid-container extra-wide' + (i === 0 ? " active" : "") + '" style="display:block">' +
+          '<article class="home-page-teaser-content" style="background-color:' + safeColor(item.color) + ';transform-origin:' + origin + ';transform:scale(1, 1) translate(0px, 0px)">' +
+          '<div class="content-wrapper" style="transform-origin:' + origin + ';transform:scale(1, 1) translate(0px, 0px)">' +
+          label +
+          "<" + heading + id + ' class="home-page-teaser-content-title ' + headingClass + '">' + esc(item.title) + "</" + heading + ">" +
+          '<p class="home-page-teaser-content-description">' + esc(item.text) + "</p>" +
+          "</div></article></li>";
+      }).join("");
+      imageList.querySelectorAll(".home-page-teaser-image").forEach((node) => node.remove());
+      const html = list.map((item, i) =>
+        '<div class="home-page-teaser-image" style="opacity:' + (i === 0 ? "1" : "0") + '"><div class="focus-point-image object-fit-container cover"><img src="' + esc(safeSrc(item.image)) + '" alt="' + esc(item.alt || item.title) + '"></div></div>'
+      ).join("");
+      hints[0].insertAdjacentHTML("beforebegin", html);
+      const info = site();
+      const who = document.querySelector("#who");
+      who.innerHTML = (safeSrc(info.who.photo) ? '<img class="who-photo" src="' + esc(safeSrc(info.who.photo)) + '" alt="">' : "") +
+        '<div class="who-copy">' +
+        (safeSrc(info.who.portrait) ? '<img class="who-portrait" src="' + esc(safeSrc(info.who.portrait)) + '" alt="">' : "") +
+        '<h2 class="heading-2">Who am I</h2><p>' + esc(info.who.text) + "</p></div>";
+      const contact = info.contact;
+      const rows = [];
+      const tel = safeTel(contact.phone);
+      const mail = safeMail(contact.email);
+      const social = safeHttp(contact.socialUrl);
+      if (tel) rows.push('<a href="tel:' + esc(tel.replace(/\s/g, "")) + '">' + esc(tel) + "</a>");
+      if (mail) rows.push('<a href="mailto:' + esc(mail) + '">' + esc(mail) + "</a>");
+      if (social) rows.push('<a href="' + esc(social) + '">' + esc(contact.socialLabel || social) + "</a>");
+      document.querySelector("#contact").innerHTML = '<h2 class="heading-2">Contact</h2>' +
+        (rows.length ? '<div class="contact-list">' + rows.join("") + "</div>" : "<p>Contact details will be added here.</p>");
+      const album = info.exhibitions.map((item) =>
+        '<button type="button" class="album-item"><img src="' + esc(safeSrc(item.image)) + '" alt="' + esc(item.title) + '"><span class="album-info"><strong>' + esc(item.title) + "</strong>" + esc(item.text) + "</span></button>"
+      ).join("");
+      document.querySelector("#exhibitions").innerHTML = '<h2 class="heading-2">Exhibitions</h2><div class="album">' + album + "</div>";
+      document.querySelectorAll(".album-item").forEach((item) => {
+        item.addEventListener("click", () => item.classList.toggle("open"));
+      });
+    }
+
+    render();
+
+    const sections = [...document.querySelectorAll(".card-scroll-section")];
+    const cards = [...document.querySelectorAll(".home-page-teaser")];
+    const images = [...document.querySelectorAll(".home-page-teaser-image")];
+    const hints = [...document.querySelectorAll(".scroll-for-more, .scroll-for-more-mobile")];
+    const overlays = [document.querySelector(".homepage-teasers"), document.querySelector(".home-page-teaser-images")];
+
+    function layout() {
+      const y = window.scrollY;
+      const whoTop = document.querySelector("#who").getBoundingClientRect().top;
+      const past = whoTop < window.innerHeight * 0.72;
+      overlays.forEach((el) => { el.style.visibility = past ? "hidden" : ""; });
+      let index = Math.max(0, sections.length - 1);
+      let progress = 1;
+      for (let i = 0; i < sections.length; i++) {
+        const top = sections[i].offsetTop;
+        const height = sections[i].offsetHeight || 1;
+        if (y < top + height) {
+          index = i;
+          progress = Math.min(1, Math.max(0, (y - top) / height));
+          break;
+        }
+      }
+      cards.forEach((card, i) => {
+        const panel = card.querySelector(".home-page-teaser-content");
+        const last = i === cards.length - 1;
+        const scale = i < index ? 0 : i === index && !last ? 1 - progress : 1;
+        panel.style.transform = "scale(" + scale + ", " + scale + ") translate(0px, 0px)";
+        card.classList.toggle("active", i === index);
+        card.style.zIndex = i === index ? "2" : i === index + 1 ? "1" : "0";
+      });
+      images.forEach((img, i) => {
+        const last = index === cards.length - 1;
+        let opacity = 0;
+        if (i === index) opacity = last ? 1 : 1 - progress;
+        else if (i === index + 1) opacity = progress;
+        img.style.opacity = String(opacity);
+      });
+      const hint = index === 0 && progress < 0.12 ? "1" : "0";
+      hints.forEach((el) => { el.style.opacity = hint; });
+    }
+
+    window.addEventListener("scroll", layout, { passive: true });
+    window.addEventListener("resize", layout);
+    layout();
+
+    let stepping = false;
+    const pages = [...sections, ...document.querySelectorAll("#who, #contact, #exhibitions")];
+    function step(direction) {
+      if (stepping || !pages.length) return;
+      const y = window.scrollY;
+      let index = pages.findIndex((el, i) => y < ((pages[i + 1] && pages[i + 1].offsetTop) || Infinity) - 8);
+      if (index < 0) index = pages.length - 1;
+      const next = pages[index + (direction > 0 ? 1 : -1)];
+      if (!next || next.offsetTop === y) return;
+      stepping = true;
+      window.scrollTo({ top: next.offsetTop, behavior: "smooth" });
+      window.setTimeout(() => { stepping = false; }, 700);
+    }
+    window.addEventListener("wheel", (event) => {
+      event.preventDefault();
+      if (Math.abs(event.deltaY) < 10) return;
+      step(event.deltaY);
+    }, { passive: false });
+    let touchStart = null;
+    window.addEventListener("touchstart", (event) => { touchStart = event.touches[0].clientY; }, { passive: true });
+    window.addEventListener("touchmove", (event) => { event.preventDefault(); }, { passive: false });
+    window.addEventListener("touchend", (event) => {
+      if (touchStart == null) return;
+      const delta = touchStart - event.changedTouches[0].clientY;
+      touchStart = null;
+      if (Math.abs(delta) > 40) step(delta);
+    });
+  </script>
+</body>
+</html>

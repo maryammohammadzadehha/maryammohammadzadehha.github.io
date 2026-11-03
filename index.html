@@ -14,7 +14,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mary</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Vazirmatn:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     *{box-sizing:border-box}
     figure,h1,h2,h3,h4,h5,h6,p,ul{margin:0}
@@ -105,6 +106,20 @@
     .who-copy p{max-width:28rem}
     .contact-list{display:grid;gap:.7rem}
     .contact-list a{color:#000;font-weight:500}
+    .contact-page{align-items:center;background-color:#fcf8f5;color:#2b2b2b;display:flex;flex-direction:column;justify-content:center;max-width:70rem;padding:30px 20px;text-align:center}
+    .contact-logo-container{margin-bottom:25px;margin-top:20px}
+    .contact-logo{height:60px;margin:0 auto 10px;width:60px}
+    .contact-brand{color:#333;font-size:1.1rem;font-weight:400;letter-spacing:1px}
+    .contact-heading-container{align-items:center;display:flex;justify-content:center;margin:20px 0 40px;width:100%}
+    .contact-heading-container::before,.contact-heading-container::after{border-bottom:1px solid #1a1a1a;content:"";flex:1}
+    .contact-heading{color:#1a1a1a;font-family:"Great Vibes",cursive;font-size:clamp(3rem,12vw,4.2rem);font-weight:400;line-height:1;padding:0 15px;white-space:nowrap}
+    .contact-page .contact-list{margin:0 auto;max-width:340px;text-align:left;width:100%}
+    .contact-item{align-items:center;border-bottom:1px solid #dcd6d1;display:flex;padding:14px 0}
+    .contact-item i{color:#000;font-size:1.2rem;margin-right:15px;text-align:center;width:35px}
+    .contact-item span,.contact-item a{color:#2b2b2b;font-size:1.05rem;line-height:1.4;text-decoration:none}
+    .whatsapp-wrapper{margin-top:35px}
+    .whatsapp-btn{align-items:center;background-color:#25d366;border-radius:50%;box-shadow:0 4px 12px rgba(37,211,102,.3);color:#fff;display:inline-flex;font-size:2rem;height:60px;justify-content:center;text-decoration:none;transition:transform .2s ease,box-shadow .2s ease;width:60px}
+    .whatsapp-btn:hover{box-shadow:0 6px 16px rgba(37,211,102,.4);transform:scale(1.08)}
     .album{display:flex;flex-wrap:wrap;gap:1.25rem}
     .album-item{background:transparent;border:0;color:inherit;cursor:pointer;font:inherit;padding:0;text-align:left;width:9rem}
     .album-item img{display:block;height:9rem;object-fit:cover;transition:transform .25s ease,filter .25s ease;width:9rem}
@@ -234,7 +249,7 @@
       </ul>
     </section>
     <section id="who" class="who-block"></section>
-    <section id="contact" class="page-block"></section>
+    <section id="contact" class="page-block contact-page"></section>
     <!-- <section id="exhibitions" class="page-block"></section> -->
   </main>
   <script>
@@ -409,18 +424,21 @@
         (whoPortrait ? '<img class="who-portrait" src="' + esc(whoPortrait) + '" alt="Portrait of Mary">' : "") +
         '<h2 class="heading-2">Who am I</h2><p>' + esc(info.who.text) + "</p></div>";
       const contact = info.contact;
-      const rows = [];
       const tel = safeTel(contact.phone);
       const mail = safeMail(contact.email);
-      const social = safeHttp(contact.socialUrl);
       const whatsapp = safeTel(contact.whatsapp);
-      if (contact.location) rows.push('<span>' + esc(contact.location) + "</span>");
-      if (tel) rows.push('<a href="tel:' + esc(tel.replace(/\s/g, "")) + '">' + esc(tel) + "</a>");
-      if (mail) rows.push('<a href="mailto:' + esc(mail) + '">' + esc(mail) + "</a>");
-      if (social) rows.push('<a href="' + esc(social) + '">' + esc(contact.socialLabel || social) + "</a>");
-      if (whatsapp) rows.push('<a href="https://wa.me/' + esc(whatsapp.replace(/\D/g, "")) + '" target="_blank" rel="noopener">WhatsApp</a>');
-      document.querySelector("#contact").innerHTML = '<h2 class="heading-2">Contact</h2><p>To order a painting or commission a piece, please get in touch.</p>' +
-        (rows.length ? '<div class="contact-list">' + rows.join("") + "</div>" : "<p>Contact details will be added here.</p>");
+      document.querySelector("#contact").innerHTML =
+        '<div class="contact-logo-container">' +
+        '<svg class="contact-logo" viewBox="0 0 100 100" fill="none" stroke="#2b2b2b" stroke-width="2" aria-hidden="true">' +
+        '<circle cx="50" cy="50" r="45"/><path d="M 50 20 C 35 20 25 35 25 50 C 25 65 35 80 50 80 C 65 80 75 65 75 50 C 75 35 65 20 50 20 Z"/><path d="M 35 45 C 35 40 42 35 50 35 C 58 35 65 40 65 45 C 65 55 50 65 50 65 C 50 65 35 55 35 45 Z"/>' +
+        '</svg><div class="contact-brand">Liceria &amp; Co.</div></div>' +
+        '<div class="contact-heading-container"><h2 class="contact-heading">Contact Us</h2></div>' +
+        '<div class="contact-list">' +
+        '<div class="contact-item"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>' + esc(contact.location || "") + '</span></div>' +
+        '<div class="contact-item"><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:' + esc(tel ? tel.replace(/\s/g, "") : "") + '">' + esc(tel || "") + '</a></div>' +
+        '<div class="contact-item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:' + esc(mail || "") + '">' + esc(mail || "") + '</a></div>' +
+        '</div>' +
+        '<div class="whatsapp-wrapper"><a href="https://wa.me/' + esc(whatsapp ? whatsapp.replace(/\D/g, "") : "") + '" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a></div>';
       const exhibitions = document.querySelector("#exhibitions");
       if (exhibitions) {
         const album = info.exhibitions.map((item) =>

@@ -295,10 +295,12 @@
         "text": "Mary paints canvases, palm-sized miniatures, and calligraphy in the studio."
       },
       "contact": {
+        "location": "123 Anywhere St., Any City, ST 12345",
         "phone": "0449516471",
         "email": "Maryammohammadzadehha@gmail.com",
         "socialLabel": "Instagram",
-        "socialUrl": "www.instagram.com"
+        "socialUrl": "www.instagram.com",
+        "whatsapp": "+1234567890"
       },
       "exhibitions": [
         {
@@ -411,9 +413,12 @@
       const tel = safeTel(contact.phone);
       const mail = safeMail(contact.email);
       const social = safeHttp(contact.socialUrl);
+      const whatsapp = safeTel(contact.whatsapp);
+      if (contact.location) rows.push('<span>' + esc(contact.location) + "</span>");
       if (tel) rows.push('<a href="tel:' + esc(tel.replace(/\s/g, "")) + '">' + esc(tel) + "</a>");
       if (mail) rows.push('<a href="mailto:' + esc(mail) + '">' + esc(mail) + "</a>");
       if (social) rows.push('<a href="' + esc(social) + '">' + esc(contact.socialLabel || social) + "</a>");
+      if (whatsapp) rows.push('<a href="https://wa.me/' + esc(whatsapp.replace(/\D/g, "")) + '" target="_blank" rel="noopener">WhatsApp</a>');
       document.querySelector("#contact").innerHTML = '<h2 class="heading-2">Contact</h2><p>To order a painting or commission a piece, please get in touch.</p>' +
         (rows.length ? '<div class="contact-list">' + rows.join("") + "</div>" : "<p>Contact details will be added here.</p>");
       const exhibitions = document.querySelector("#exhibitions");

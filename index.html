@@ -408,9 +408,11 @@
       hints[0].insertAdjacentHTML("beforebegin", html);
       const info = site();
       const who = document.querySelector("#who");
-      who.innerHTML = (safeSrc(info.who.photo) ? '<img class="who-photo" src="' + esc(safeSrc(info.who.photo)) + '" alt="">' : "") +
+      const whoPhoto = safeSrc(info.who.photo) || safeSrc(SITE_CONTENT.who.photo);
+      const whoPortrait = safeSrc(info.who.portrait) || safeSrc(SITE_CONTENT.who.portrait);
+      who.innerHTML = (whoPhoto ? '<img class="who-photo" src="' + esc(whoPhoto) + '" alt="Mary in her studio">' : "") +
         '<div class="who-copy">' +
-        (safeSrc(info.who.portrait) ? '<img class="who-portrait" src="' + esc(safeSrc(info.who.portrait)) + '" alt="">' : "") +
+        (whoPortrait ? '<img class="who-portrait" src="' + esc(whoPortrait) + '" alt="Portrait of Mary">' : "") +
         '<h2 class="heading-2">Who am I</h2><p>' + esc(info.who.text) + "</p></div>";
       const contact = info.contact;
       const rows = [];
@@ -420,7 +422,7 @@
       if (tel) rows.push('<a href="tel:' + esc(tel.replace(/\s/g, "")) + '">' + esc(tel) + "</a>");
       if (mail) rows.push('<a href="mailto:' + esc(mail) + '">' + esc(mail) + "</a>");
       if (social) rows.push('<a href="' + esc(social) + '">' + esc(contact.socialLabel || social) + "</a>");
-      document.querySelector("#contact").innerHTML = '<h2 class="heading-2">Contact</h2>' +
+      document.querySelector("#contact").innerHTML = '<h2 class="heading-2">Contact</h2><p>To order a painting or commission a piece, please get in touch.</p>' +
         (rows.length ? '<div class="contact-list">' + rows.join("") + "</div>" : "<p>Contact details will be added here.</p>");
       const exhibitions = document.querySelector("#exhibitions");
       if (exhibitions) {

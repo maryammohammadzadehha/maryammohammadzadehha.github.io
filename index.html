@@ -650,7 +650,7 @@
       if (touchStart == null) return;
       const delta = touchStart - event.changedTouches[0].clientY;
       touchStart = null;
-      if (Math.abs(delta) > 40) step(delta);
+      if (Math.abs(delta) > 40) step(delta); 
     });
   </script>
 </body>

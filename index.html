@@ -107,6 +107,27 @@
     .contact-list{display:grid;gap:.7rem}
     .contact-list a{color:#000;font-weight:500}
     .contact-page{align-items:center;background-color:#fcf8f5;color:#2b2b2b;display:flex;flex-direction:column;justify-content:center;max-width:70rem;padding:30px 20px;text-align:center}
+    .album-page{align-items:center;display:flex;flex-direction:column;justify-content:center;max-width:70rem;padding:30px 20px;text-align:center}
+    .album-grid{display:grid;grid-template-columns:repeat(4, 1fr);grid-auto-rows:minmax(150px, auto);gap:15px;width:100%;overflow-y:auto;max-height:80vh;padding:10px;scrollbar-width:thin}
+    .album-item-square{aspect-ratio:1/1;overflow:hidden;cursor:pointer;position:relative;background-color:#eee;transition:transform .2s ease}
+    .album-item-square:hover{transform:scale(1.03)}
+    .album-item-square img{width:100%;height:100%;object-fit:cover}
+    .album-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.9);z-index:1000;justify-content:center;align-items:center;padding:20px}
+    .album-modal-content{display:flex;background-color:#f8f2d8;max-width:90%;max-height:90%;width:100%;max-height:80vh;position:relative;box-shadow:0 0 30px rgba(0,0,0,0.5);border-radius:8px;overflow:hidden}
+    .album-modal-img-container{flex:2;background-color:#000;display:flex;justify-content:center;align-items:center;overflow:hidden}
+    .album-modal-img{max-width:100%;max-height:80vh;object-fit:contain}
+    .album-modal-details{flex:1;padding:40px;display:flex;flex-direction:column;justify-content:center;text-align:left;background-color:#f8f2d8;color:#000}
+    .album-modal-title{font-family:"Great Vibes",cursive;font-size:2.5rem;margin-bottom:10px;color:#1a1a1a}
+    .album-modal-category{font-weight:500;color:#666;margin-bottom:20px;text-transform:uppercase;font-size:0.9rem;letter-spacing:1px}
+    .album-modal-description{line-height:1.6;font-size:1.1rem}
+    .album-modal-close{position:absolute;top:20px;right:20px;background:none;border:none;font-size:2rem;color:#fff;cursor:pointer;z-index:1001;transition:color .2s}
+    .album-modal-close:hover{color:#ccc}
+    @media only screen and (max-width:768px){
+      .album-grid{grid-template-columns:repeat(2, 1fr)}
+      .album-modal-content{flex-direction:column;overflow-y:auto}
+      .album-modal-img-container{flex:none;height:40vh}
+      .album-modal-details{flex:none;padding:20px;text-align:center}
+    }
     .contact-logo-container{margin-bottom:25px;margin-top:20px}
     .contact-logo{height:60px;margin:0 auto 10px;width:60px}
     .contact-brand{color:#333;font-size:1.1rem;font-weight:400;letter-spacing:1px}
@@ -249,6 +270,7 @@
       </ul>
     </section>
     <section id="who" class="who-block"></section>
+    <section id="album" class="page-block album-page"></section>
     <section id="contact" class="page-block contact-page"></section>
     <!-- <section id="exhibitions" class="page-block"></section> -->
   </main>
@@ -332,6 +354,44 @@
           "image": "images/IMG_6320.JPG",
           "title": "Exhibition",
           "text": "Add the place and the date."
+        }
+      ],
+      "album": [
+        {
+          "image": "images/homeland.jpg",
+          "title": "The Love of Homeland",
+          "category": "Calligraphy",
+          "text": "Based on a poem from Saadi Shirazi: Sa‘di, though the love of one’s homeland is a valid sentiment, I cannot die here, for it was there that I was born."
+        },
+        {
+          "image": "images/shallpass.jpg",
+          "title": "This too shall pass",
+          "category": "Calligraphy",
+          "text": "Calligraphy of the famous quotation: This too shall pass in Persian (Farsi) language"
+        },
+        {
+          "image": "images/Heart.jpg",
+          "title": "It is all YOU",
+          "category": "Calligraphy",
+          "text": "Molana's Poem: In my heart, inside and outside, it is all You"
+        },
+        {
+          "image": "images/miniator.jpg",
+          "title": "Miniature painting",
+          "category": "Miniature",
+          "text": "Miniature painting of famous places in Iran, Azadi tower, Cyrus tomb, Ali Qapu building, Tomb of Hafez"
+        },
+        {
+          "image": "images/pearl.jpg",
+          "title": "A girl with Pearl earring drinking Ice tea",
+          "category": "Painting",
+          "text": "A free, modern take on the famous painting \"Girl with a Pearl Earring\""
+        },
+        {
+          "image": "images/Scandinavian Sunlit Botanical Corner.png",
+          "title": "Sun",
+          "category": "Collage Art",
+          "text": "A minimalist botanical illustration featuring a fine black line-art plant overlaid on a layered blue background and a bold orange sun."
         }
       ]
     };
@@ -448,6 +508,67 @@
       }
       document.querySelectorAll(".album-item").forEach((item) => {
         item.addEventListener("click", () => item.classList.toggle("open"));
+      });
+
+      const albumSection = document.querySelector("#album");
+      if (albumSection) {
+        const albumData = info.album || [];
+        const gridHtml = albumData.map(item => 
+          `<div class="album-item-square" data-index="${albumData.indexOf(item)}">
+            <img src="${esc(safeSrc(item.image))}" alt="${esc(item.title)}">
+          </div>`
+        ).join("");
+        albumSection.innerHTML = '<h2 class="heading-2">Art Album</h2><div class="album-grid">' + gridHtml + '</div>';
+      }
+
+      const modalHtml = `
+        <div id="album-modal" class="album-modal">
+          <button class="album-modal-close" aria-label="Close">&times;</button>
+          <div class="album-modal-content">
+            <div class="album-modal-img-container">
+              <img id="modal-img" class="album-modal-img" src="" alt="">
+            </div>
+            <div class="album-modal-details">
+              <h3 id="modal-title" class="album-modal-title"></h3>
+              <span id="modal-category" class="album-modal-category"></span>
+              <p id="modal-description" class="album-modal-description"></p>
+            </div>
+          </div>
+        </div>`;
+      document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+      const modal = document.getElementById("album-modal");
+      const modalImg = document.getElementById("modal-img");
+      const modalTitle = document.getElementById("modal-title");
+      const modalCategory = document.getElementById("modal-category");
+      const modalDesc = document.getElementById("modal-description");
+      const modalClose = modal.querySelector(".album-modal-close");
+
+      document.querySelectorAll(".album-item-square").forEach(item => {
+        item.addEventListener("click", () => {
+          const index = item.getAttribute("data-index");
+          const data = albumData[index];
+          modalImg.src = esc(safeSrc(data.image));
+          modalImg.alt = esc(data.title);
+          modalTitle.textContent = data.title;
+          modalCategory.textContent = data.category;
+          modalDesc.textContent = data.text;
+          modal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      modalClose.addEventListener("click", () => {
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      });
+
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+          document.body.style.overflow = "";
+        }
+      });
       });
     }
 

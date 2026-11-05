@@ -280,10 +280,10 @@
         {
           "label": "Calligraphy",
           "title": "The love of Homeland",
-          "text": "Based on a poem from Saadi Shirazi: Sa‘di, though the love of one’s homeland is a valid sentiment, I cannot die here, for it was there that I was born.",
+          "text": "Based on a poem from Saadi Shirazi: Sa'di, though the love of one's homeland is a valid sentiment, I cannot die here, for it was there that I was born.",
           "color": "#f3b080",
           "image": "images/homeland.jpg",
-          "alt": "Based on a poem from Saadi Shirazi: Sa‘di, though the love of one’s homeland is a valid sentiment, I cannot die here, for it was there that I was born."
+          "alt": "Based on a poem from Saadi Shirazi: Sa'di, though the love of one's homeland is a valid sentiment, I cannot die here, for it was there that I was born."
         },
         {
           "label": "Calligraphy",
@@ -361,7 +361,7 @@
           "image": "images/homeland.jpg",
           "title": "The Love of Homeland",
           "category": "Calligraphy",
-          "text": "Based on a poem from Saadi Shirazi: Sa‘di, though the love of one’s homeland is a valid sentiment, I cannot die here, for it was there that I was born."
+          "text": "Based on a poem from Saadi Shirazi: Sa'di, though the love of one's homeland is a valid sentiment, I cannot die here, for it was there that I was born."
         },
         {
           "image": "images/shallpass.jpg",
@@ -408,26 +408,12 @@
       return /^#[0-9a-fA-F]{6}$/.test(color) ? color : "#ffce01";
     }
 
-    function loadJson(key) {
-      const raw = localStorage.getItem(key);
-      if (!raw) return null;
-      try { return JSON.parse(raw); } catch (e) { return null; }
-    }
-
     function works() {
-      const saved = loadJson("mary-works");
-      return Array.isArray(saved) ? saved : SITE_CONTENT.works;
+      return SITE_CONTENT.works;
     }
 
     function site() {
-      const saved = loadJson("mary-site");
-      if (!saved || typeof saved !== "object") return SITE_CONTENT;
-      return {
-        who: { ...SITE_CONTENT.who, ...(saved.who || {}) },
-        contact: { ...SITE_CONTENT.contact, ...(saved.contact || {}) },
-        exhibitions: Array.isArray(saved.exhibitions) ? saved.exhibitions : SITE_CONTENT.exhibitions,
-        album: Array.isArray(saved.album) ? saved.album : SITE_CONTENT.album
-      };
+      return SITE_CONTENT;
     }
 
     function safeHttp(url) {

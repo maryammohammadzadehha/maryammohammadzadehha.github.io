@@ -2,3 +2,6 @@ streamlit_app.py
 .streamlit/
 requirements.txt
 contact me page.html
+manage.html
+__pycache__/
+manage.py

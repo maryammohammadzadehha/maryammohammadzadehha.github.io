@@ -425,7 +425,8 @@
       return {
         who: { ...SITE_CONTENT.who, ...(saved.who || {}) },
         contact: { ...SITE_CONTENT.contact, ...(saved.contact || {}) },
-        exhibitions: Array.isArray(saved.exhibitions) ? saved.exhibitions : SITE_CONTENT.exhibitions
+        exhibitions: Array.isArray(saved.exhibitions) ? saved.exhibitions : SITE_CONTENT.exhibitions,
+        album: Array.isArray(saved.album) ? saved.album : SITE_CONTENT.album
       };
     }
 
@@ -511,8 +512,8 @@
       });
 
       const albumSection = document.querySelector("#album");
+      const albumData = info.album || SITE_CONTENT.album;
       if (albumSection) {
-        const albumData = info.album || [];
         const gridHtml = albumData.map(item => 
           `<div class="album-item-square" data-index="${albumData.indexOf(item)}">
             <img src="${esc(safeSrc(item.image))}" alt="${esc(item.title)}">
@@ -569,7 +570,6 @@
           document.body.style.overflow = "";
         }
       });
-      });
     }
 
     render();
@@ -625,7 +625,7 @@
     layout();
 
     let stepping = false;
-    const pages = [...sections, ...document.querySelectorAll("#who, #contact, #exhibitions")];
+    const pages = [...sections, ...document.querySelectorAll("#who, #album, #contact")];
     function step(direction) {
       if (stepping || !pages.length) return;
       const y = window.scrollY;

@@ -95,6 +95,7 @@
     .top-nav.nav-hidden{opacity:0;pointer-events:none;transform:translateY(-120%)}
     .top-nav a{color:#000;font-size:1.2rem;font-weight:500;text-decoration:none}
     .top-nav a:hover{text-decoration:underline}
+    .mobile-controls,.mobile-menu{display:none}
     .page-block,.who-block{height:100svh;margin:0 auto;overflow:hidden;padding:5.5rem 1.5rem 2rem}
     .to-top{align-items:center;background:#000;border-radius:50%;bottom:1.25rem;color:#fff;display:flex;height:3rem;justify-content:center;position:fixed;right:1.25rem;width:3rem;z-index:21}
     .to-top svg{height:1.35rem;width:1.35rem}
@@ -155,6 +156,19 @@
     @media only screen and (min-width:64em){
       .top-nav{padding-left:2.125rem}
     }
+    @media only screen and (max-width:63.9375em){
+      .top-nav{display:none}
+      .mobile-controls{align-items:center;display:flex;justify-content:space-between;left:0;padding:1rem 1.25rem;position:fixed;top:0;transition:opacity .25s ease,transform .25s ease;width:100%;z-index:30}
+      .mobile-controls.nav-hidden{opacity:0;pointer-events:none;transform:translateY(-120%)}
+      .mobile-menu-toggle{align-items:center;background:#000;border:0;border-radius:50%;color:#fff;cursor:pointer;display:flex;height:2.75rem;justify-content:center;width:2.75rem}
+      .mobile-menu-toggle i{font-size:1.1rem}
+      .mobile-logo{display:block;height:3rem;width:3rem}
+      .mobile-logo img{display:block;height:100%;object-fit:contain;width:100%}
+      .mobile-menu{background:#f8f2d8;display:flex;flex-direction:column;gap:1rem;left:1.25rem;opacity:0;padding:1.25rem;pointer-events:none;position:fixed;top:4.5rem;transform:translateY(-.5rem);transition:opacity .2s ease,transform .2s ease;visibility:hidden;z-index:29}
+      .mobile-menu.open{opacity:1;pointer-events:auto;transform:translateY(0);visibility:visible}
+      .mobile-menu a{color:#000;font-size:1.1rem;font-weight:500;text-decoration:none}
+      .mobile-menu a:hover{text-decoration:underline}
+    }
   </style>
 </head>
 <body style="--background-color:#F8F2D8">
@@ -165,6 +179,16 @@
     <a href="#album">Art Album</a>
     <a href="#contact">Contact</a>
     <!-- <a href="#exhibitions">Exhibitions</a> -->
+  </nav>
+  <div class="mobile-controls">
+    <button class="mobile-menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+    <a class="mobile-logo" href="#home" aria-label="MiM Gallery home"><img src="images/logo 2 .png" alt="MiM Gallery"></a>
+  </div>
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile pages">
+    <a href="#home">Home</a>
+    <a href="#who">Who am I</a>
+    <a href="#album">Art Album</a>
+    <a href="#contact">Contact</a>
   </nav>
   <main class="page-transition">
     <section id="home" class="home-page has-layering-effect" aria-labelledby="homepage-heading">
@@ -596,6 +620,26 @@
       });
     }
 
+    const mobileControls = document.querySelector(".mobile-controls");
+    const mobileMenu = document.querySelector("#mobile-menu");
+    const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+    function closeMobileMenu() {
+      mobileMenu.classList.remove("open");
+      mobileMenuToggle.setAttribute("aria-expanded", "false");
+      mobileMenuToggle.setAttribute("aria-label", "Open menu");
+      mobileMenuToggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+    }
+    mobileMenuToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("open");
+      mobileMenuToggle.setAttribute("aria-expanded", String(isOpen));
+      mobileMenuToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+      mobileMenuToggle.innerHTML = '<i class="fa-solid ' + (isOpen ? "fa-xmark" : "fa-bars") + '" aria-hidden="true"></i>';
+    });
+    mobileMenu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMobileMenu));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMobileMenu();
+    });
+
     render();
 
     const sections = [...document.querySelectorAll(".card-scroll-section")];
@@ -609,7 +653,10 @@
       const y = window.scrollY;
       const nav = document.querySelector(".top-nav");
       nav.classList.toggle("nav-hidden", y > 8 && y > lastScrollY);
+      mobileControls.classList.toggle("nav-hidden", y > 8 && y > lastScrollY);
       if (y <= 8 || y < lastScrollY) nav.classList.remove("nav-hidden");
+      if (y <= 8 || y < lastScrollY) mobileControls.classList.remove("nav-hidden");
+      if (y > 8 && y > lastScrollY) closeMobileMenu();
       lastScrollY = y;
       const whoTop = document.querySelector("#who").getBoundingClientRect().top;
       const past = whoTop < window.innerHeight * 0.72;

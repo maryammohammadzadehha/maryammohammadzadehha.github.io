@@ -97,7 +97,6 @@
     .top-nav a{color:#000;font-size:1.2rem;font-weight:500;text-decoration:none}
     .top-nav a:hover{text-decoration:underline}
     .language-switcher{background:#f8f2d8;border:1px solid #000;color:#000;font:inherit;padding:.35rem .5rem;position:fixed;right:1.5rem;top:1rem;z-index:22}
-    [dir="rtl"] .language-switcher{left:1.5rem;right:auto}
     .mobile-controls,.mobile-menu,.desktop-logo{display:none}
     .page-block,.who-block{height:100svh;margin:0 auto;overflow:hidden;padding:5.5rem 1.5rem 2rem}
     .to-top{align-items:center;background:#000;border-radius:50%;bottom:1.25rem;color:#fff;display:flex;height:3rem;justify-content:center;position:fixed;right:1.25rem;width:3rem;z-index:21}
@@ -1048,10 +1047,7 @@
     let lastScrollY = window.scrollY;
     function layout() {
       const y = window.scrollY;
-      const nav = document.querySelector(".top-nav");
-      nav.classList.toggle("nav-hidden", y > 8 && y > lastScrollY);
       mobileControls.classList.toggle("nav-hidden", y > 8 && y > lastScrollY);
-      if (y <= 8 || y < lastScrollY) nav.classList.remove("nav-hidden");
       if (y <= 8 || y < lastScrollY) mobileControls.classList.remove("nav-hidden");
       if (y > 8 && y > lastScrollY) closeMobileMenu();
       lastScrollY = y;

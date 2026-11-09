@@ -110,6 +110,24 @@
     .contact-list a{color:#000;font-weight:500}
     .contact-page{align-items:center;background-color:#fcf8f5;color:#2b2b2b;display:flex;flex-direction:column;justify-content:center;max-width:70rem;padding:30px 20px;text-align:center}
     .album-page{align-items:center;display:flex;flex-direction:column;justify-content:center;max-width:70rem;padding:30px 20px;text-align:center}
+    .exhibitions-page{align-items:center;display:flex;flex-direction:column;justify-content:center;max-width:70rem;padding:30px 20px;text-align:center}
+    .exhibition-list{display:grid;gap:1.5rem;grid-template-columns:repeat(3,minmax(0,1fr));max-height:70vh;overflow-y:auto;padding:1rem;scrollbar-width:thin;width:100%}
+    .exhibition-item{background:#fffaf0;border:1px solid rgba(0,0,0,.12);color:inherit;cursor:pointer;font:inherit;min-width:0;padding:0;text-align:left}
+    .exhibition-item img{aspect-ratio:4/3;display:block;object-fit:cover;transition:filter .25s ease;width:100%}
+    .exhibition-item:hover img,.exhibition-item.open img,.exhibition-item:focus-visible img{filter:brightness(1.08)}
+    .exhibition-info{display:block;padding:1rem}
+    .exhibition-info strong{display:block;font-size:1.1rem;margin-bottom:.35rem}
+    .exhibition-info span{display:block}
+    .exhibition-modal{align-items:center;background:rgba(0,0,0,.9);display:none;height:100%;inset:0;justify-content:center;padding:20px;position:fixed;width:100%;z-index:1000}
+    .exhibition-modal-content{background:#f8f2d8;display:flex;max-height:85vh;max-width:1000px;overflow:hidden;position:relative;width:100%}
+    .exhibition-modal-gallery{align-items:center;background:#000;display:flex;flex:1;justify-content:center;min-width:0;position:relative}
+    .exhibition-modal-img{max-height:85vh;max-width:100%;object-fit:contain}
+    .exhibition-modal-details{display:flex;flex:0 0 34%;flex-direction:column;justify-content:center;padding:2.5rem;text-align:left}
+    .exhibition-modal-title{font-family:"Great Vibes",cursive;font-size:2.5rem;margin-bottom:1rem}
+    .exhibition-modal-description{line-height:1.6}
+    .exhibition-modal-arrow{align-items:center;background:rgba(0,0,0,.55);border:0;border-radius:50%;color:#fff;cursor:pointer;display:flex;font-size:1.8rem;height:2.8rem;justify-content:center;position:absolute;top:50%;transform:translateY(-50%);width:2.8rem}
+    .exhibition-modal-arrow.previous{left:1rem}.exhibition-modal-arrow.next{right:1rem}
+    .exhibition-modal-close{background:none;border:0;color:#fff;cursor:pointer;font-size:2rem;position:absolute;right:1rem;top:.5rem;z-index:2}
     .album-grid{display:grid;grid-template-columns:repeat(4, 1fr);grid-auto-rows:minmax(150px, auto);gap:15px;width:100%;overflow-y:auto;max-height:80vh;padding:10px;overscroll-behavior:contain;scrollbar-width:thin;touch-action:pan-y}
     .album-item-square{aspect-ratio:1/1;overflow:hidden;cursor:pointer;position:relative;background-color:#eee;transition:transform .2s ease}
     .album-item-square:hover{transform:scale(1.03)}
@@ -126,6 +144,11 @@
     .album-modal-close:hover{color:#ccc}
     @media only screen and (max-width:768px){
       .album-grid{grid-template-columns:repeat(2, 1fr)}
+      .exhibition-list{grid-template-columns:1fr;max-height:68vh}
+      .exhibition-modal-content{flex-direction:column;max-height:90vh}
+      .exhibition-modal-gallery{flex:none;height:50vh}
+      .exhibition-modal-img{max-height:50vh}
+      .exhibition-modal-details{flex:none;padding:1.5rem;text-align:center}
       .album-modal-content{flex-direction:column;overflow-y:auto}
       .album-modal-img-container{flex:none;height:40vh}
       .album-modal-details{flex:none;padding:20px;text-align:center}
@@ -180,8 +203,8 @@
     <a href="#home">Home</a>
     <a href="#who">Who am I</a>
     <a href="#album">Art Album</a>
+    <a href="#exhibitions">Exhibitions</a>
     <a href="#contact">Contact</a>
-    <!-- <a href="#exhibitions">Exhibitions</a> -->
   </nav>
   <div class="mobile-controls">
     <a class="mobile-logo" href="#home" aria-label="MiM Gallery home"><img src="images/logo 2 .png" alt="MiM Gallery"></a>
@@ -191,6 +214,7 @@
     <a href="#home">Home</a>
     <a href="#who">Who am I</a>
     <a href="#album">Art Album</a>
+    <a href="#exhibitions">Exhibitions</a>
     <a href="#contact">Contact</a>
   </nav>
   <main class="page-transition">
@@ -300,8 +324,8 @@
     </section>
     <section id="who" class="who-block"></section>
     <section id="album" class="page-block album-page"></section>
+    <section id="exhibitions" class="page-block exhibitions-page"></section>
     <section id="contact" class="page-block contact-page"></section>
-    <!-- <section id="exhibitions" class="page-block"></section> -->
   </main>
   <script>
     const SITE_CONTENT = {
@@ -370,19 +394,14 @@
       },
       "exhibitions": [
         {
-          "title": "Exhibition",
-          "text": "Add the place and the date.",
-          "image": "images/Heart.jpg"
-        },
-        {
-          "title": "Exhibition",
-          "text": "Add the place and the date.",
-          "image": "images/Heart.jpg"
-        },
-        {
-          "title": "Exhibition",
-          "text": "Add the place and the date.",
-          "image": "images/Heart.jpg"
+          "title": "Maailman päivä World´s day",
+          "text": "Mira International Culture Society arranges a World´s Day event with its partners on Saturday Nov 12th at 12–3 p.m. in Alma Adult Education Centre in Vaasa (Raastuvankatu 31).",
+          "photos": [
+            "images/exh1 (1).jpg",
+            "images/exh1 (2).jpg",
+            "images/exh1 (3).jpg",
+            "images/exh1 (4).jpg"
+          ]
         }
       ],
       "album": [
@@ -552,14 +571,84 @@
         '</div>' +
         '<div class="whatsapp-wrapper"><a href="https://wa.me/' + esc(whatsapp ? whatsapp.replace(/\D/g, "") : "") + '" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact on WhatsApp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a></div>';
       const exhibitions = document.querySelector("#exhibitions");
+      const exhibitionData = (info.exhibitions || []).map((item) => ({
+        ...item,
+        photos: Array.isArray(item.photos) ? item.photos.filter(Boolean).slice(0, 5) : (item.image ? [item.image] : [])
+      }));
       if (exhibitions) {
-        const album = info.exhibitions.map((item) =>
-          '<button type="button" class="album-item"><img src="' + esc(safeSrc(item.image)) + '" alt="' + esc(item.title) + '"><span class="album-info"><strong>' + esc(item.title) + "</strong>" + esc(item.text) + "</span></button>"
+        const exhibitionItems = exhibitionData.map((item, index) =>
+          '<button type="button" class="exhibition-item" data-exhibition-index="' + index + '"><img src="' + esc(safeSrc(item.photos[0])) + '" alt="' + esc(item.title) + '"><span class="exhibition-info"><strong>' + esc(item.title) + "</strong><span>" + esc(item.text) + "</span></span></button>"
         ).join("");
-        exhibitions.innerHTML = '<h2 class="heading-2">Exhibitions</h2><div class="album">' + album + "</div>";
+        exhibitions.innerHTML = '<h2 class="heading-2">Exhibitions</h2><div class="exhibition-list">' + exhibitionItems + "</div>";
       }
-      document.querySelectorAll(".album-item").forEach((item) => {
-        item.addEventListener("click", () => item.classList.toggle("open"));
+      const exhibitionModalHtml = `
+        <div id="exhibition-modal" class="exhibition-modal" role="dialog" aria-modal="true" aria-label="Exhibition details">
+          <div class="exhibition-modal-content">
+            <button type="button" class="exhibition-modal-close" aria-label="Close">&times;</button>
+            <div class="exhibition-modal-gallery">
+              <button type="button" class="exhibition-modal-arrow previous" aria-label="Previous photo">&#8249;</button>
+              <img class="exhibition-modal-img" src="" alt="">
+              <button type="button" class="exhibition-modal-arrow next" aria-label="Next photo">&#8250;</button>
+            </div>
+            <div class="exhibition-modal-details">
+              <h3 class="exhibition-modal-title"></h3>
+              <p class="exhibition-modal-description"></p>
+            </div>
+          </div>
+        </div>`;
+      document.body.insertAdjacentHTML("beforeend", exhibitionModalHtml);
+      const exhibitionModal = document.getElementById("exhibition-modal");
+      const exhibitionModalImg = exhibitionModal.querySelector(".exhibition-modal-img");
+      const exhibitionModalTitle = exhibitionModal.querySelector(".exhibition-modal-title");
+      const exhibitionModalDescription = exhibitionModal.querySelector(".exhibition-modal-description");
+      let exhibitionIndex = 0;
+      let exhibitionPhotoIndex = 0;
+      function showExhibitionPhoto() {
+        const item = exhibitionData[exhibitionIndex];
+        const photos = item.photos.length ? item.photos : [""];
+        exhibitionPhotoIndex = (exhibitionPhotoIndex + photos.length) % photos.length;
+        exhibitionModalImg.src = safeSrc(photos[exhibitionPhotoIndex]);
+        exhibitionModalImg.alt = item.title;
+        exhibitionModalTitle.textContent = item.title;
+        exhibitionModalDescription.textContent = item.text;
+        exhibitionModal.querySelector(".previous").hidden = photos.length < 2;
+        exhibitionModal.querySelector(".next").hidden = photos.length < 2;
+      }
+      document.querySelectorAll(".exhibition-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          exhibitionIndex = Number(item.dataset.exhibitionIndex);
+          exhibitionPhotoIndex = 0;
+          showExhibitionPhoto();
+          exhibitionModal.style.display = "flex";
+          document.body.style.overflow = "hidden";
+        });
+      });
+      exhibitionModal.querySelector(".previous").addEventListener("click", () => {
+        exhibitionPhotoIndex--;
+        showExhibitionPhoto();
+      });
+      exhibitionModal.querySelector(".next").addEventListener("click", () => {
+        exhibitionPhotoIndex++;
+        showExhibitionPhoto();
+      });
+      function closeExhibitionModal() {
+        exhibitionModal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+      exhibitionModal.querySelector(".exhibition-modal-close").addEventListener("click", closeExhibitionModal);
+      exhibitionModal.addEventListener("click", (event) => {
+        if (event.target === exhibitionModal) closeExhibitionModal();
+      });
+      exhibitionModal.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") {
+          exhibitionPhotoIndex--;
+          showExhibitionPhoto();
+        } else if (event.key === "ArrowRight") {
+          exhibitionPhotoIndex++;
+          showExhibitionPhoto();
+        } else if (event.key === "Escape") {
+          closeExhibitionModal();
+        }
       });
 
       const albumSection = document.querySelector("#album");
@@ -699,7 +788,7 @@
     layout();
 
     let stepping = false;
-    const pages = [...sections, ...document.querySelectorAll("#who, #album, #contact")];
+    const pages = [...sections, ...document.querySelectorAll("#who, #album, #exhibitions, #contact")];
     function step(direction) {
       if (stepping || !pages.length) return;
       const y = window.scrollY;

@@ -15,7 +15,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MiM Gallery</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @font-face{font-display:swap;font-family:"Great Vibes";font-style:normal;font-weight:400;src:url("fonts/GreatVibes-Regular.ttf") format("truetype")}
     *{box-sizing:border-box}
@@ -216,7 +215,7 @@
   </nav>
   <div class="mobile-controls">
     <a class="mobile-logo" href="#home" aria-label="MiM Gallery home"><img src="images/logo 2 .png" alt="MiM Gallery"></a>
-    <button class="mobile-menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" data-i18n-aria-label="openMenu" aria-label="Open menu"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+    <button class="mobile-menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" data-i18n-aria-label="openMenu" aria-label="Open menu"><span aria-hidden="true">☰</span></button>
   </div>
   <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile pages">
     <a href="#home" data-i18n="home">Home</a>
@@ -296,36 +295,6 @@
       </ul>
 
       <ul class="home-page-teaser-images grid-container extra-wide">
-        <div class="home-page-teaser-image" style="opacity:1">
-          <div class="focus-point-image object-fit-container cover">
-            <img src="images/hero-1.JPG" alt="Calligraphy painting with a cypress tree on an orange ground">
-          </div>
-        </div>
-        <div class="home-page-teaser-image" style="opacity:0">
-          <div class="focus-point-image object-fit-container cover">
-            <img src="images/hero-2.JPG" alt="Painting of a girl with a pearl earring holding an iced coffee">
-          </div>
-        </div>
-        <div class="home-page-teaser-image" style="opacity:0">
-          <div class="focus-point-image object-fit-container cover">
-            <img src="images/hero-3.JPG" alt="Calligraphy painting with flowers and a geometric star">
-          </div>
-        </div>
-        <div class="home-page-teaser-image" style="opacity:0">
-          <div class="focus-point-image object-fit-container cover">
-            <img src="images/avatar.JPG" alt="Miniature watercolour of the Tomb of Cyrus on an easel">
-          </div>
-        </div>
-        <div class="home-page-teaser-image" style="opacity:0">
-          <div class="focus-point-image object-fit-container cover">
-            <img src="images/IMG_6319.JPG" alt="Miniature painting of Khaju Bridge">
-          </div>
-        </div>
-        <div class="home-page-teaser-image" style="opacity:0">
-          <div class="focus-point-image object-fit-container cover">
-            <img src="images/IMG_6320.JPG" alt="Miniature painting of a garden pavilion with a green dome">
-          </div>
-        </div>
         <div class="scroll-for-more" style="opacity:1">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M10.525 18.964v-8.24c0-.809.666-1.475 1.475-1.475s1.475.666 1.475 1.475v8.24l4.5-4.499a1.48 1.48 0 0 1 2.085 0 1.482 1.482 0 0 1 0 2.086l-7.017 7.017a1.45 1.45 0 0 1-.447.305 1.456 1.456 0 0 1-1.192 0 1.45 1.45 0 0 1-.447-.305L3.94 16.55a1.482 1.482 0 0 1 0-2.086 1.48 1.48 0 0 1 2.085 0l4.5 4.5zM12 5.11a1.476 1.476 0 1 1-.001 2.951A1.476 1.476 0 0 1 12 5.11zM12 0a1.476 1.476 0 0 1 0 2.95A1.476 1.476 0 0 1 12 0z"/></svg>
           <p data-i18n="scrollForMore">Scroll for more</p>
@@ -856,11 +825,11 @@
         '</svg><div class="contact-brand">MIM Gallery</div></div>' +
         '<div class="contact-heading-container"><h2 class="contact-heading" data-i18n="contactUs">' + t("contactUs") + "</h2></div>" +
         '<div class="contact-list">' +
-        '<div class="contact-item"><i class="fa-solid fa-location-dot" aria-hidden="true"></i><span>' + esc(contact.location || "") + '</span></div>' +
-        '<div class="contact-item"><i class="fa-solid fa-phone" aria-hidden="true"></i><a href="tel:' + esc(tel ? tel.replace(/\s/g, "") : "") + '">' + esc(tel || "") + '</a></div>' +
-        '<div class="contact-item"><i class="fa-solid fa-envelope" aria-hidden="true"></i><a href="mailto:' + esc(mail || "") + '">' + esc(mail || "") + '</a></div>' +
+        '<div class="contact-item"><i aria-hidden="true">⌖</i><span>' + esc(contact.location || "") + '</span></div>' +
+        '<div class="contact-item"><i aria-hidden="true">☎</i><a href="tel:' + esc(tel ? tel.replace(/\s/g, "") : "") + '">' + esc(tel || "") + '</a></div>' +
+        '<div class="contact-item"><i aria-hidden="true">✉</i><a href="mailto:' + esc(mail || "") + '">' + esc(mail || "") + '</a></div>' +
         '</div>' +
-        '<div class="whatsapp-wrapper"><a href="https://wa.me/' + esc(whatsapp ? whatsapp.replace(/\D/g, "") : "") + '" target="_blank" rel="noopener" class="whatsapp-btn" data-i18n-aria-label="contactOnWhatsApp" aria-label="' + t("contactOnWhatsApp") + '"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a></div>';
+        '<div class="whatsapp-wrapper"><a href="https://wa.me/' + esc(whatsapp ? whatsapp.replace(/\D/g, "") : "") + '" target="_blank" rel="noopener" class="whatsapp-btn" data-i18n-aria-label="contactOnWhatsApp" aria-label="' + t("contactOnWhatsApp") + '"><span aria-hidden="true">WA</span></a></div>';
       const exhibitions = document.querySelector("#exhibitions");
       const exhibitionData = (info.exhibitions || []).map((item, index) => {
         const translated = localized("exhibitions", index, item);
@@ -1014,13 +983,13 @@
       mobileMenu.classList.remove("open");
       mobileMenuToggle.setAttribute("aria-expanded", "false");
       mobileMenuToggle.setAttribute("aria-label", t("openMenu"));
-      mobileMenuToggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+      mobileMenuToggle.innerHTML = '<span aria-hidden="true">☰</span>';
     }
     mobileMenuToggle.addEventListener("click", () => {
       const isOpen = mobileMenu.classList.toggle("open");
       mobileMenuToggle.setAttribute("aria-expanded", String(isOpen));
       mobileMenuToggle.setAttribute("aria-label", isOpen ? t("closeMenu") : t("openMenu"));
-      mobileMenuToggle.innerHTML = '<i class="fa-solid ' + (isOpen ? "fa-xmark" : "fa-bars") + '" aria-hidden="true"></i>';
+      mobileMenuToggle.innerHTML = '<span aria-hidden="true">' + (isOpen ? "×" : "☰") + "</span>";
     });
     mobileMenu.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMobileMenu));
     document.addEventListener("keydown", (event) => {

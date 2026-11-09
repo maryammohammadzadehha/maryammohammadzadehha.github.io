@@ -14,8 +14,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>MiM Gallery</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap">
+  <link rel="preload" as="image" href="images/homeland.webp" fetchpriority="high">
+  <link rel="preload" as="font" href="fonts/Vazirmatn-700.ttf" type="font/ttf" crossorigin>
   <style>
+    @font-face{font-display:swap;font-family:Vazirmatn;font-style:normal;font-weight:400;src:url("fonts/Vazirmatn-400.ttf") format("truetype")}
+    @font-face{font-display:swap;font-family:Vazirmatn;font-style:normal;font-weight:500;src:url("fonts/Vazirmatn-500.ttf") format("truetype")}
+    @font-face{font-display:swap;font-family:Vazirmatn;font-style:normal;font-weight:700;src:url("fonts/Vazirmatn-700.ttf") format("truetype")}
     @font-face{font-display:swap;font-family:"Great Vibes";font-style:normal;font-weight:400;src:url("fonts/GreatVibes-Regular.ttf") format("truetype")}
     *{box-sizing:border-box}
     figure,h1,h2,h3,h4,h5,h6,p,ul{margin:0}
@@ -26,6 +30,7 @@
     [dir="rtl"] .home-page-teaser-content-title,[dir="rtl"] .album-modal-title,[dir="rtl"] .exhibition-modal-title{font-family:Vazirmatn,Arial,sans-serif;font-weight:700}
     .object-fit-container{position:relative}
     .object-fit-container img{height:100%;left:0;position:absolute;top:0;width:100%}
+    img{height:auto;max-width:100%}
     .object-fit-container.cover img{object-fit:cover}
     .grid-container{margin-left:auto;margin-right:auto;max-width:85rem;padding-left:28px;padding-right:28px;width:100%}
     .grid-container.extra-wide{max-width:130rem}
@@ -205,7 +210,7 @@
     <option value="fi">Suomi</option>
     <option value="fa">فارسی</option>
   </select>
-  <a class="desktop-logo" href="#home" aria-label="MiM Gallery home"><img src="images/logo 2 .png" alt="MiM Gallery"></a>
+  <a class="desktop-logo" href="#home" aria-label="MiM Gallery home"><img src="images/logo 2 .webp" alt="MiM Gallery" width="1530" height="1500" decoding="async"></a>
   <nav class="top-nav" aria-label="Pages">
     <a href="#home" data-i18n="home">Home</a>
     <a href="#who" data-i18n="who">Who am I</a>
@@ -214,7 +219,7 @@
     <a href="#contact" data-i18n="contact">Contact</a>
   </nav>
   <div class="mobile-controls">
-    <a class="mobile-logo" href="#home" aria-label="MiM Gallery home"><img src="images/logo 2 .png" alt="MiM Gallery"></a>
+    <a class="mobile-logo" href="#home" aria-label="MiM Gallery home"><img src="images/logo 2 .webp" alt="MiM Gallery" width="1530" height="1500" decoding="async"></a>
     <button class="mobile-menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" data-i18n-aria-label="openMenu" aria-label="Open menu"><span aria-hidden="true">☰</span></button>
   </div>
   <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile pages">
@@ -295,6 +300,11 @@
       </ul>
 
       <ul class="home-page-teaser-images grid-container extra-wide">
+        <div class="home-page-teaser-image" style="opacity:1">
+          <div class="focus-point-image object-fit-container cover">
+            <img src="images/homeland.webp" alt="Calligraphy painting about homeland" width="768" height="1364" fetchpriority="high" decoding="async">
+          </div>
+        </div>
         <div class="scroll-for-more" style="opacity:1">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path fill="currentColor" d="M10.525 18.964v-8.24c0-.809.666-1.475 1.475-1.475s1.475.666 1.475 1.475v8.24l4.5-4.499a1.48 1.48 0 0 1 2.085 0 1.482 1.482 0 0 1 0 2.086l-7.017 7.017a1.45 1.45 0 0 1-.447.305 1.456 1.456 0 0 1-1.192 0 1.45 1.45 0 0 1-.447-.305L3.94 16.55a1.482 1.482 0 0 1 0-2.086 1.48 1.48 0 0 1 2.085 0l4.5 4.5zM12 5.11a1.476 1.476 0 1 1-.001 2.951A1.476 1.476 0 0 1 12 5.11zM12 0a1.476 1.476 0 0 1 0 2.95A1.476 1.476 0 0 1 12 0z"/></svg>
           <p data-i18n="scrollForMore">Scroll for more</p>
@@ -317,7 +327,7 @@
           "title": "Homeland",
           "text": "Based on a poem from Saadi Shirazi: Sa'di, though the love of one's homeland is a valid sentiment, I cannot die here, for it was there that I was born.",
           "color": "#f3b080",
-          "image": "images/homeland.jpg",
+          "image": "images/homeland.webp",
           "alt": "Based on a poem from Saadi Shirazi: Sa'di, though the love of one's homeland is a valid sentiment, I cannot die here, for it was there that I was born."
         },
         {
@@ -325,7 +335,7 @@
           "title": "This too shall pass",
           "text": "Calligraphy of the famous quotation: This too shall pass in Persian (Farsi) language",
           "color": "#c58f81",
-          "image": "images/shallpass.jpg",
+          "image": "images/shallpass.webp",
           "alt": "This too shall pass in Persian (Farsi) language"
         },
         {
@@ -333,7 +343,7 @@
           "title": "It is all YOU",
           "text": "Molana's Poem: In my heart, inside and outside, it is all You",
           "color": "#e2b65c",
-          "image": "images/Heart.jpg",
+          "image": "images/Heart.webp",
           "alt": "Molana's Poem: In my heart, inside and outside, it is all You"
         },
         {
@@ -341,7 +351,7 @@
           "title": "Miniature painting",
           "text": "Miniature painting of famous places in Iran, Azadi tower, Cyrus tomb, Ali Qapu building, Tomb of Hafez",
           "color": "#cb9868",
-          "image": "images/miniator.jpg",
+          "image": "images/miniator.webp",
           "alt": "Miniature painting of famous places in Iran, Azadi tower, Cyrus tomb, Ali Qapu building, Tomb of Hafez"
         },
         {
@@ -349,7 +359,7 @@
           "title": "A girl with Pearl earing drinking Ice tea",
           "text": "A free, modern take on the famous painting \"Girl with a Pearl Earring\"",
           "color": "#dacc98",
-          "image": "images/pearl.jpg",
+          "image": "images/pearl.webp",
           "alt": "A free, modern take on the famous painting \"Girl with a Pearl Earring\""
         },
         {
@@ -357,13 +367,13 @@
           "title": "Sun",
           "text": "A minimalist botanical illustration featuring a fine black line-art plant overlaid on a layered blue background and a bold orange sun.",
           "color": "#e66b41",
-          "image": "images/Scandinavian Sunlit Botanical Corner.png",
+          "image": "images/Scandinavian Sunlit Botanical Corner.webp",
           "alt": "A minimalist botanical illustration featuring a fine black line-art plant overlaid on a layered blue background and a bold orange sun."
         }
       ],
       "who": {
-        "portrait": "images/Me.jpg",
-        "photo": "images/Me2.jpg",
+        "portrait": "images/Me.webp",
+        "photo": "images/Me2.webp",
         "text": "Mary paints canvases, palm-sized miniatures, and calligraphy in the studio."
       },
       "contact": {
@@ -379,10 +389,10 @@
           "title": "Maailman päivä World´s day",
           "text": "Mira International Culture Society arranges a World´s Day event with its partners on Saturday Nov 12th at 12–3 p.m. in Alma Adult Education Centre in Vaasa (Raastuvankatu 31).",
           "photos": [
-            "images/exh1 (1).jpg",
-            "images/exh1 (2).jpg",
-            "images/exh1 (3).jpg",
-            "images/exh1 (4).jpg"
+            "images/exh1 (1).webp",
+            "images/exh1 (2).webp",
+            "images/exh1 (3).webp",
+            "images/exh1 (4).webp"
           ]
         }
       ],
@@ -391,73 +401,73 @@
           "title": "The Love of Homeland",
           "category": "Calligraphy",
           "text": "Based on a poem from Saadi Shirazi: Sa'di, though the love of one's homeland is a valid sentiment, I cannot die here, for it was there that I was born.",
-          "image": "images/homeland.jpg"
+          "image": "images/homeland.webp"
         },
         {
           "title": "This too shall pass",
           "category": "Calligraphy",
           "text": "Calligraphy of the famous quotation: This too shall pass in Persian (Farsi) language",
-          "image": "images/shallpass.jpg"
+          "image": "images/shallpass.webp"
         },
         {
           "title": "It is all You",
           "category": "Calligraphy",
           "text": "Molana's Poem: In my heart, inside and outside, it is all You",
-          "image": "images/Heart.jpg"
+          "image": "images/Heart.webp"
         },
         {
           "title": "Miniature painting",
           "category": "Miniature",
           "text": "Miniature painting of famous places in Iran, Azadi tower, Cyrus tomb, Ali Qapu building, Tomb of Hafez",
-          "image": "images/miniator.jpg"
+          "image": "images/miniator.webp"
         },
         {
           "title": "A girl with Pearl earring ",
           "category": "Painting",
           "text": "A free, modern take on the famous painting \"Girl with a Pearl Earring\" drinking Ice tea",
-          "image": "images/pearl.jpg"
+          "image": "images/pearl.webp"
         },
         {
           "title": "Sun",
           "category": "Collage Art",
           "text": "A minimalist botanical illustration featuring a fine black line-art plant overlaid on a layered blue background and a bold orange sun.",
-          "image": "images/Scandinavian Sunlit Botanical Corner.png"
+          "image": "images/Scandinavian Sunlit Botanical Corner.webp"
         },
         {
           "title": "The Painting Pool",
           "category": "Painting",
           "text": "Based on the Iranian Movie \"The Paining Pool\" (Hoze Naghashi)",
-          "image": "images/HozeNaghashi.JPG"
+          "image": "images/HozeNaghashi.webp"
         },
         {
           "title": "Since you exist",
           "category": "Calligraphy",
           "text": "Based on Saadi Shirazi's Poem: even if there is nothing else, since you exist, everything exists.",
-          "image": "images/Hich.JPG"
+          "image": "images/Hich.webp"
         },
         {
           "title": "Cat Collection",
           "category": "Painting",
           "text": "A triple collection of a playful black cat in different places",
-          "image": "images/CatCollection.PNG"
+          "image": "images/CatCollection.webp"
         },
         {
           "title": "Immigration",
           "category": "Painting",
           "text": "A triple collection of Immigration ",
-          "image": "images/Immigration.PNG"
+          "image": "images/Immigration.webp"
         },
         {
           "title": "Duck Bath",
           "category": "Painting",
           "text": "A very Classy duck after his bath",
-          "image": "images/DuckBath.JPG"
+          "image": "images/DuckBath.webp"
         },
         {
           "title": "Ferida",
           "category": "Painting",
           "text": "A free, modern take on the famous painting \"Ferida\"",
-          "image": "images/Ferida.JPG"
+          "image": "images/Ferida.webp"
         }
       ],
       "translations": {
@@ -769,6 +779,7 @@
         selector.value = language;
       });
     }
+    const scheduleIdle = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 1));
 
     function render() {
       const list = works().map((item, index) => localized("works", index, item));
@@ -799,9 +810,12 @@
           '<p class="home-page-teaser-content-description">' + esc(item.text) + "</p>" +
           "</div></article></li>";
       }).join("");
-      imageList.querySelectorAll(".home-page-teaser-image").forEach((node) => node.remove());
-      const html = list.map((item, i) =>
-        '<div class="home-page-teaser-image" style="opacity:' + (i === 0 ? "1" : "0") + '"><div class="focus-point-image object-fit-container cover"><img src="' + esc(safeSrc(item.image)) + '" alt="' + esc(item.alt || item.title) + '"></div></div>'
+      const firstImage = imageList.querySelector(".home-page-teaser-image");
+      firstImage.querySelector("img").src = safeSrc(list[0].image);
+      firstImage.querySelector("img").alt = list[0].alt || list[0].title;
+      imageList.querySelectorAll(".home-page-teaser-image:not(:first-child)").forEach((node) => node.remove());
+      const html = list.slice(1).map((item) =>
+        '<div class="home-page-teaser-image" style="opacity:0"><div class="focus-point-image object-fit-container cover"><img src="' + esc(safeSrc(item.image)) + '" alt="' + esc(item.alt || item.title) + '" width="768" height="1364" loading="lazy" decoding="async"></div></div>'
       ).join("");
       hints[0].insertAdjacentHTML("beforebegin", html);
       const info = site();
@@ -810,9 +824,9 @@
       const who = document.querySelector("#who");
       const whoPhoto = safeSrc(whoContent.photo) || safeSrc(SITE_CONTENT.who.photo);
       const whoPortrait = safeSrc(whoContent.portrait) || safeSrc(SITE_CONTENT.who.portrait);
-      who.innerHTML = (whoPhoto ? '<img class="who-photo" src="' + esc(whoPhoto) + '" alt="Mary in her studio">' : "") +
+      who.innerHTML = (whoPhoto ? '<img class="who-photo" src="' + esc(whoPhoto) + '" alt="Mary in her studio" width="720" height="1280" loading="lazy" decoding="async">' : "") +
         '<div class="who-copy">' +
-        (whoPortrait ? '<img class="who-portrait" src="' + esc(whoPortrait) + '" alt="Portrait of Mary">' : "") +
+        (whoPortrait ? '<img class="who-portrait" src="' + esc(whoPortrait) + '" alt="Portrait of Mary" width="640" height="640" loading="lazy" decoding="async">' : "") +
         '<h2 class="heading-2" data-i18n="who">' + t("who") + '</h2><p>' + esc(whoContent.text) + "</p></div>";
       const contact = contactContent;
       const tel = safeTel(contact.phone);
@@ -830,6 +844,7 @@
         '<div class="contact-item"><i aria-hidden="true">✉</i><a href="mailto:' + esc(mail || "") + '">' + esc(mail || "") + '</a></div>' +
         '</div>' +
         '<div class="whatsapp-wrapper"><a href="https://wa.me/' + esc(whatsapp ? whatsapp.replace(/\D/g, "") : "") + '" target="_blank" rel="noopener" class="whatsapp-btn" data-i18n-aria-label="contactOnWhatsApp" aria-label="' + t("contactOnWhatsApp") + '"><span aria-hidden="true">WA</span></a></div>';
+      scheduleIdle(() => {
       const exhibitions = document.querySelector("#exhibitions");
       const exhibitionData = (info.exhibitions || []).map((item, index) => {
         const translated = localized("exhibitions", index, item);
@@ -840,7 +855,7 @@
       });
       if (exhibitions) {
         const exhibitionItems = exhibitionData.map((item, index) =>
-          '<button type="button" class="exhibition-item" data-exhibition-index="' + index + '"><img src="' + esc(safeSrc(item.photos[0])) + '" alt="' + esc(item.title) + '"><span class="exhibition-info"><strong>' + esc(item.title) + "</strong><span>" + esc(item.text) + "</span></span></button>"
+          '<button type="button" class="exhibition-item" data-exhibition-index="' + index + '"><img src="' + esc(safeSrc(item.photos[0])) + '" alt="' + esc(item.title) + '" width="1280" height="720" loading="lazy" decoding="async"><span class="exhibition-info"><strong>' + esc(item.title) + "</strong><span>" + esc(item.text) + "</span></span></button>"
         ).join("");
         exhibitions.innerHTML = '<h2 class="heading-2" data-i18n="exhibitions">' + t("exhibitions") + '</h2><div class="exhibition-list">' + exhibitionItems + "</div>";
       }
@@ -850,7 +865,7 @@
             <button type="button" class="exhibition-modal-close" data-i18n-aria-label="close" aria-label="${t("close")}">&times;</button>
             <div class="exhibition-modal-gallery">
               <button type="button" class="exhibition-modal-arrow previous" data-i18n-aria-label="previousPhoto" aria-label="${t("previousPhoto")}">&#8249;</button>
-              <img class="exhibition-modal-img" src="" alt="">
+              <img class="exhibition-modal-img" src="" alt="" width="1280" height="720" decoding="async">
               <button type="button" class="exhibition-modal-arrow next" data-i18n-aria-label="nextPhoto" aria-label="${t("nextPhoto")}">&#8250;</button>
             </div>
             <div class="exhibition-modal-details">
@@ -920,7 +935,7 @@
       if (albumSection) {
         const gridHtml = albumData.map(item => 
           `<div class="album-item-square" data-index="${albumData.indexOf(item)}">
-            <img src="${esc(safeSrc(item.image))}" alt="${esc(item.title)}">
+            <img src="${esc(safeSrc(item.image))}" alt="${esc(item.title)}" width="768" height="1364" loading="lazy" decoding="async">
           </div>`
         ).join("");
         albumSection.innerHTML = '<h2 class="heading-2" data-i18n="album">' + t("album") + '</h2><div class="album-grid">' + gridHtml + '</div>';
@@ -974,6 +989,9 @@
           document.body.style.overflow = "";
         }
       });
+      images = [...document.querySelectorAll(".home-page-teaser-image")];
+      layout();
+      });
     }
 
     const mobileControls = document.querySelector(".mobile-controls");
@@ -1009,7 +1027,7 @@
 
     const sections = [...document.querySelectorAll(".card-scroll-section")];
     const cards = [...document.querySelectorAll(".home-page-teaser")];
-    const images = [...document.querySelectorAll(".home-page-teaser-image")];
+    let images = [...document.querySelectorAll(".home-page-teaser-image")];
     const hints = [...document.querySelectorAll(".scroll-for-more, .scroll-for-more-mobile")];
     const overlays = [document.querySelector(".homepage-teasers"), document.querySelector(".home-page-teaser-images")];
 
